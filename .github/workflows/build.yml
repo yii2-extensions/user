@@ -25,6 +25,9 @@ jobs:
   phpunit:
     uses: yiisoft/actions/.github/workflows/phpunit.yml@master
     with:
+      composer-command: |
+        composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
+        ./tests/bin/yii migrate/up --migrationPath=@yii-user/migration --interactive=0
       os: >-
         ['ubuntu-latest', 'windows-latest']
       php: >-
