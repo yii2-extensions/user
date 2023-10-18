@@ -21,7 +21,7 @@ return [
     'aliases' => [
         '@app' => dirname(__DIR__, 3),
         '@bower' => '@app/node_modules',
-        '@npm'   => '@app/node_modules',
+        '@npm' => '@app/node_modules',
         '@resource' => '@app/tests/Support/Data/Framework/resource',
         '@runtime' => '@app/tests/Support/Data/public/runtime',
         '@web' => '@app/tests/Support/Data/public',
@@ -32,7 +32,7 @@ return [
     'basePath' => dirname(__DIR__, 3),
     'bootstrap' => [
         RegisterEventHandler::class,
-        'log'
+        'log',
     ],
     'components' => [
         'db' => [

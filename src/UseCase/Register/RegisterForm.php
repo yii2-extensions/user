@@ -55,38 +55,38 @@ final class RegisterForm extends Model
                 'value' => $this->userModule->confirmation ? 0 : time(),
             ],
             // username rules
-            'usernameTrim'     => ['username', 'trim'],
-            'usernameLength'   => ['username', 'string', 'min' => 3, 'max' => 255],
-            'usernamePattern'  => ['username', 'match', 'pattern' => $this->userModule->usernameRegex],
+            'usernameTrim' => ['username', 'trim'],
+            'usernameLength' => ['username', 'string', 'min' => 3, 'max' => 255],
+            'usernamePattern' => ['username', 'match', 'pattern' => $this->userModule->usernameRegex],
             'usernameRequired' => ['username', 'required'],
-            'usernameUnique'   => [
+            'usernameUnique' => [
                 'username',
                 'unique',
                 'targetClass' => Account::class,
-                'message' => Yii::t('yii.user', 'This username has already been taken.')
+                'message' => Yii::t('yii.user', 'This username has already been taken.'),
             ],
             // email rules
-            'emailTrim'     => ['email', 'trim'],
+            'emailTrim' => ['email', 'trim'],
             'emailRequired' => ['email', 'required'],
-            'emailPattern'  => ['email', 'email'],
-            'emailUnique'   => [
+            'emailPattern' => ['email', 'email'],
+            'emailUnique' => [
                 'email',
                 'unique',
                 'targetClass' => Account::class,
-                'message' => Yii::t('yii.user', 'This email address has already been taken.')
+                'message' => Yii::t('yii.user', 'This email address has already been taken.'),
             ],
             // password rules
             'passwordRequired' => [
                 'password',
                 'required',
-                'skipOnEmpty' => $this->userModule->generatePassword
+                'skipOnEmpty' => $this->userModule->generatePassword,
             ],
             'passwordLength' => ['password', 'string', 'min' => 6, 'max' => 72],
             // password repeat rules
             'passwordRepeatRequired' => [
                 'passwordRepeat',
                 'required',
-                'skipOnEmpty' => $this->userModule->generatePassword
+                'skipOnEmpty' => $this->userModule->generatePassword,
             ],
             'passwordRepeatCompare' => [
                 'passwordRepeat',

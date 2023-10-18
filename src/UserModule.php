@@ -75,8 +75,7 @@ final class UserModule extends Module
         string $urlConfirmation = null,
         public readonly string $usernameRegex = '/^[-a-zA-Z0-9_\.@]+$/',
         array $config = [],
-    )
-    {
+    ) {
         $this->mailerSignatureText = $mailerSignatureText ??
             Yii::t(
                 'yii.user',

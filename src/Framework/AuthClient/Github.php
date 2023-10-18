@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yii\User\Framework\AuthClient;
 
-final class GitHub extends \yii\authclient\clients\GitHub
+final class Github extends \yii\authclient\clients\GitHub
 {
     /**
      * {@inheritdoc}

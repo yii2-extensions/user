@@ -36,7 +36,7 @@ final class RegisterServiceTest extends Unit
                         true => false,
                         default => $identity->save() === true,
                     };
-                }
+                },
             ],
         );
 

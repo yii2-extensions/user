@@ -72,7 +72,7 @@ final class FinderRepositoryTest extends Unit
     {
         $identity = new Identity();
         $identity->id = 1;
-        $identity->auth_key = "1234567890";
+        $identity->auth_key = '1234567890';
 
         return $identity;
     }

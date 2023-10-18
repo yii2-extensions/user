@@ -31,7 +31,7 @@ final class Identity extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id): IdentityInterface|null
     {
-        return Identity::findOne($id);
+        return self::findOne($id);
     }
 
     public static function findIdentityByAccessToken(mixed $token, mixed $type = null)

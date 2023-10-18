@@ -32,7 +32,6 @@ final class RegisterController extends Controller
         parent::__construct($id, $module, $config);
     }
 
-
     public function behaviors(): array
     {
         return [
