@@ -23,9 +23,12 @@ name: build
 
 jobs:
   phpunit:
-    uses: yiisoft/actions/.github/workflows/phpunit.yml@master
+    uses: php-forge/actions/.github/workflows/codeception.yml@main
     with:
+      codeception-command: |
+        ./tests/bin/yii migrate/up --migrationPath=@yii-user/migration --interactive=0
+        vendor/bin/codecept run --coverage-xml
       os: >-
-        ['ubuntu-latest', 'windows-latest']
+        ['ubuntu-latest']
       php: >-
         ['8.1', '8.2', '8.3']

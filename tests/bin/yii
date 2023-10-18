@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Yiisoft\Config\Config;
+use Yiisoft\Config\ConfigPaths;
+use Yiisoft\Config\Modifier\RecursiveMerge;
+
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+$rootDir = dirname(__DIR__, 2);
+
+require "$rootDir/vendor/autoload.php";
+require "$rootDir/vendor/yiisoft/yii2/Yii.php";
+
+$config = new Config(
+    new ConfigPaths($rootDir, 'config', 'vendor'),
+    'tests',
+    [RecursiveMerge::groups('console')],
+);
+
+$application = new yii\console\Application($config->get('console'));
+$exitCode = $application->run();
+
+exit($exitCode);

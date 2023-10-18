@@ -1,41 +1,84 @@
 {
-    "name": "yii2/template",
-    "type": "library",
-    "description": "_____",
+    "name": "yii2-extensions/user",
+    "type": "yii2-extension",
+    "description": "Flexible user registration and authentication module for Yii 2.0",
     "keywords": [
-        "_____"
+        "yii2",
+        "module",
+        "user management"
     ],
     "license": "mit",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
-        "yiisoft/yii2": "^2.2"
+        "npm-asset/fortawesome--fontawesome-free": "^6.4",
+        "oomphinc/composer-installers-extender": "^2.0",
+        "php-forge/helpers": "dev-main",
+        "sjaakp/yii2-icon": "^1.0",
+        "yii2-extensions/authclient": "dev-main",
+        "yii2-extensions/httpclient": "dev-main",
+        "yiisoft/security": "^1.0",
+        "yiisoft/yii2": "^2.2",
+        "yiisoft/yii2-bootstrap5": "^2.0",
+        "yiisoft/yii2-symfonymailer": "^3.0"
     },
     "require-dev": {
+        "codeception/c3": "^2.9",
+        "codeception/codeception": "^5.0.0",
+        "codeception/lib-innerbrowser": "^4.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-filesystem": "^3.0",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-yii2": "^1.1",
+        "codeception/stub": "^4.1",
+        "codeception/verify": "^3.0",
         "maglnet/composer-require-checker": "^4.6",
-        "phpunit/phpunit": "^10.2",
-        "proget-hq/phpstan-yii2": "^0.8.0"
+        "symfony/browser-kit": "^6.3",
+        "symfony/process": "^6.3",
+        "yii2-extensions/phpstan": "dev-main",
+        "yiisoft/config": "^1.3"
     },
     "autoload": {
         "psr-4": {
-            "yii\\template\\": "src"
+            "Yii\\User\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "yii\\template\\tests\\": "tests"
+            "Yii\\User\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0.x-dev"
+        },
+        "config-plugin": {
+            "web": "web/*.php",
+            "params": "params.php"
+        },
+        "config-plugin-options": {
+            "source-directory": "config"
+        },
+        "config-plugin-environments": {
+            "tests": {
+                "console": "tests/console/*.php",
+                "web": "tests/web/*.php"
+            }
+        },
+        "installer-types": ["bower-asset", "npm-asset"],
+        "installer-paths": {
+            "./node_modules/{$name}/": ["type:bower-asset", "type:npm-asset"]
         }
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "yiisoft/yii2-composer": true
+            "yiisoft/yii2-composer": true,
+            "codeception/c3": true,
+            "yiisoft/config": true,
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true
         }
     },
     "scripts": {
