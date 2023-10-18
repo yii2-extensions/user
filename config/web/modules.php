@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-/**
- * @var array $params
- */
+use Yii\User\UserModule;
+
 return [
     'modules' => [
         'user' => [
-            'class' => \Yii\User\UserModule::class,
+            'class' => UserModule::class,
         ],
     ],
 ];

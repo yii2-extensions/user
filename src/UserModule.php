@@ -6,6 +6,7 @@ namespace Yii\User;
 
 use Yii;
 use yii\base\Module;
+use yii\helpers\Url;
 
 final class UserModule extends Module
 {
@@ -51,44 +52,39 @@ final class UserModule extends Module
     public const TYPE_CONFIRM_2FA = 4;
     public const VERSION = '1.0.0';
 
-    public readonly bool $accountGeneratingPassword;
-    public readonly bool $confirmation;
-    public readonly bool $floatLabels;
-    public readonly bool $generatePassword;
-    public readonly string $mailerFrom;
-    public readonly string $mailerFromName;
-    public readonly string $mailerSignatureImage;
     public readonly string $mailerSignatureText;
-    public readonly array $mailerWelcomeLayout;
     public readonly string $mailerWelcomeSubject;
-    public readonly bool $showPassword;
-    public readonly int $token2FAWithin;
-    public readonly int $tokenConfirmWithin;
-    public readonly int $tokenRecoverWithin;
     public readonly string $urlConfirmation;
-    public readonly string $usernameRegex;
 
-    public function __construct($id, Module $module, bool $confirmation = false, array $config = [])
+    public function __construct(
+        $id,
+        Module $module,
+        public readonly bool $accountGeneratingPassword = false,
+        public readonly bool $confirmation = false,
+        public readonly bool $floatLabels = true,
+        public readonly bool $generatePassword = false,
+        public readonly string $mailerFrom = 'yiiuser@example.com',
+        public readonly string $mailerFromName = 'Yii User Module',
+        public readonly string $mailerSignatureImage = '@yii-user/mailer/signature/yii.svg',
+        string $mailerSignatureText = null,
+        public readonly array $mailerWelcomeLayout = ['html' => 'welcome', 'text' => 'text/welcome'],
+        string|null $mailerWelcomeSubject = null,
+        public readonly bool $showPassword = false,
+        public readonly int $token2FAWithin = 3600,
+        public readonly int $tokenConfirmWithin = 86400,
+        public readonly int $tokenRecoverWithin = 3600,
+        string $urlConfirmation = null,
+        public readonly string $usernameRegex = '/^[-a-zA-Z0-9_\.@]+$/',
+        array $config = [],
+    )
     {
-        $this->accountGeneratingPassword = false;
-        $this->confirmation = $confirmation;
-        $this->floatLabels = true;
-        $this->generatePassword = false;
-        $this->mailerFrom = 'yiiuser@example.com';
-        $this->mailerFromName = 'Yii User Module';
-        $this->mailerSignatureImage = Yii::getAlias('@yii-user/mailer/signature/yii-logo.png');
-        $this->mailerSignatureText = Yii::t(
-            'yii.user',
-             '&copy; ' . date('Y') . ' <strong>' . Yii::$app->name . '</strong>',
-        );
-        $this->mailerWelcomeLayout = ['html' => 'welcome', 'text' => 'text/welcome'];
-        $this->mailerWelcomeSubject = Yii::t('yii.user', 'Welcome to {0}', [Yii::$app->name]);
-        $this->showPassword = false;
-        $this->token2FAWithin = 3600;
-        $this->tokenConfirmWithin = 86400;
-        $this->tokenRecoverWithin = 3600;
-        $this->usernameRegex = '/^[-a-zA-Z0-9_\.@]+$/';
-        $this->urlConfirmation = '/user/confirm';
+        $this->mailerSignatureText = $mailerSignatureText ??
+            Yii::t(
+                'yii.user',
+                '&copy; ' . date('Y') . ' <strong>' . Yii::$app->name . '</strong>',
+            );
+        $this->mailerWelcomeSubject = $mailerWelcomeSubject ?? Yii::t('yii.user', 'Welcome to {0}', [Yii::$app->name]);
+        $this->urlConfirmation = $urlConfirmation ??= Url::to('/user/confirm');
 
         parent::__construct($id, $module, $config);
     }

@@ -6,7 +6,7 @@ namespace Yii\User\Framework\Repository;
 
 use yii\db\ActiveRecordInterface;
 
-final class PersistenceRepository extends AbstractRepository
+final class PersistenceRepository extends AbstractRepository implements PersistenceRepositoryInterface
 {
     public function deleteAll(ActiveRecordInterface $ar, array $condition): bool
     {

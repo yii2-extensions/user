@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+use yii\db\Connection;
+use yii\i18n\PhpMessageSource;
+use yii\log\FileTarget;
+use yii\symfonymailer\Mailer;
+use Yii\User\Framework\EventHandler\RegisterEventHandler;
+use Yii\User\Framework\Repository\PersistenceRepository;
+use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
+use Yii\User\Model\Identity;
+use Yii\User\Tests\Support\Data\UseCase\Site\SiteController;
+use Yii\User\UseCase\Register\RegisterController;
+use Yii\User\UserModule;
+use yii\web\Session;
+
 $params = require_once dirname(__DIR__) . '/params-web.php';
 
 return [
@@ -18,21 +31,21 @@ return [
     ],
     'basePath' => dirname(__DIR__, 3),
     'bootstrap' => [
-        \Yii\User\Framework\EventHandler\RegisterEventHandler::class,
+        RegisterEventHandler::class,
         'log'
     ],
     'components' => [
         'db' => [
-            'class' => \yii\db\Connection::class,
+            'class' => Connection::class,
             'dsn' => 'sqlite:' . dirname(__DIR__) . '/yiitest.sq3',
         ],
         'i18n' => [
             'translations' => [
                 'app.basic' => [
-                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'class' => PhpMessageSource::class,
                 ],
                 'yii.user' => [
-                    'class' => \yii\i18n\PhpMessageSource::class,
+                    'class' => PhpMessageSource::class,
                 ],
             ],
         ],
@@ -40,7 +53,7 @@ return [
             'traceLevel' => 'YII_DEBUG' ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning', 'info'],
                     'logFile' => '@runtime/logs/app.log',
                 ],
@@ -55,34 +68,35 @@ return [
             'showScriptName' => false,
         ],
         'user' => [
-            'identityClass' => \Yii\User\Repository\IdentityRepository::class,
+            'identityClass' => Identity::class,
         ],
     ],
     'container' => [
         'definitions' => [
-            \yii\symfonymailer\Mailer::class => [
+            Mailer::class => [
                 'useFileTransport' => true,
             ],
+            PersistenceRepositoryInterface::class => PersistenceRepository::class,
         ],
         'singletons' => [
-            \yii\web\Session::class => static function (): \yii\web\Session {
-                return new \yii\web\Session();
+            Session::class => static function (): Session {
+                return new Session();
             },
         ],
     ],
     'controllerMap' => [
         'register' => [
-            'class' => \Yii\User\UseCase\Register\RegisterController::class,
+            'class' => RegisterController::class,
         ],
         'site' => [
-            'class' => \Yii\User\Tests\Support\Data\UseCase\Site\SiteController::class,
+            'class' => SiteController::class,
         ],
     ],
     'id' => 'app-tests',
     'language' => 'en-US',
     'modules' => [
         'user' => [
-            'class' => \Yii\User\UserModule::class,
+            'class' => UserModule::class,
         ],
     ],
     'name' => 'Web application basic',

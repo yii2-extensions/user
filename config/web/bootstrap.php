@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use Yii\User\Framework\EventHandler\RegisterEventHandler;
+
 return [
     'bootstrap' => [
-        \Yii\User\Framework\EventHandler\RegisterEventHandler::class,
+        RegisterEventHandler::class,
     ],
 ];

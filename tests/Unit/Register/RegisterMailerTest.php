@@ -38,7 +38,7 @@ final class RegisterMailerTest extends \Codeception\Test\Unit
 
     public function testRegisterWithConfirmationTrue(): void
     {
-        // set confirmation true
+        // set confirmation `true`
         Yii::$container->set(
             \Yii\User\UserModule::class,
             [
@@ -78,12 +78,57 @@ final class RegisterMailerTest extends \Codeception\Test\Unit
         )->stringContainsString('If you cannot click the link,');
 
 
-        // set confirmation false
+        // set confirmation `false`
         Yii::$container->set(
             \Yii\User\UserModule::class,
             [
                 '__construct()' => [
                     'confirmation' => true,
+                ],
+            ],
+        );
+    }
+
+    public function testRegisterWithShowPasswordTrue(): void
+    {
+        // set showPassword `true`
+        Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'showPassword' => true,
+                ],
+            ],
+        );
+
+        $registerMailer = Yii::createObject(RegisterMailer::class);
+
+        // using Yii2 module actions to check email was not sent
+        $result = $registerMailer->send(Yii::$app->mailer, 'tester@example.com', 'tester', '123456');
+
+        verify($result)->true();
+
+        // using Yii2 module actions to check email was sent
+        $this->tester->seeEmailIsSent();
+
+        /** @var MessageInterface $emailMessage */
+        $emailMessage = $this->tester->grabLastSentEmail();
+
+        verify($emailMessage)->instanceOf(MessageInterface::class);
+        verify($emailMessage->getTo())->arrayHasKey('tester@example.com');
+        verify($emailMessage->getFrom())->arrayHasKey('yiiuser@example.com');
+        verify($emailMessage->getSubject())->equals('Welcome to Web application basic');
+        verify($emailMessage->toString())->stringContainsString('Your account on Web application basic has been created.');
+        verify(
+            $emailMessage->toString()
+        )->stringContainsString('123456');
+
+        // set showPassword `false`
+        Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'showPassword' => false,
                 ],
             ],
         );

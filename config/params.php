@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\UseCase\Register\RegisterController;
+
 return [
     'app.aliases' => [
         '@yii-user' => '@vendor/yii2-extensions/user',
@@ -10,7 +12,7 @@ return [
     ],
     'app.controllerMap' => [
         'register' => [
-            'class' => \Yii\User\UseCase\Register\RegisterController::class,
+            'class' => RegisterController::class,
         ],
     ],
     'app.events' => [

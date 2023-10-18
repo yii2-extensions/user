@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use yii\db\Connection;
+
 $params = require_once dirname(__DIR__) . '/params-console.php';
 
 return [
@@ -13,7 +15,7 @@ return [
     'bootstrap' => ['log'],
     'components' => [
         'db' => [
-            'class' => \yii\db\Connection::class,
+            'class' => Connection::class,
             'dsn' => 'sqlite:' . dirname(__DIR__) . '/yiitest.sq3',
         ],
     ],

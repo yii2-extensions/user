@@ -7,8 +7,7 @@ namespace Yii\User\UseCase\Register;
 use PHPForge\Helpers\Password;
 use RuntimeException;
 use yii\base\Component;
-use Yii\User\Framework\Repository\IdentityRepository;
-use Yii\User\Framework\Repository\PersistenceRepository;
+use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
 use Yii\User\Model\Account;
 use Yii\User\Model\Identity;
 use Yii\User\Model\Profile;
@@ -21,7 +20,7 @@ final class RegisterService extends Component
     public function __construct(
         private readonly Account $account,
         private readonly Identity $identity,
-        private readonly PersistenceRepository $persistenceRepository,
+        private readonly PersistenceRepositoryInterface $persistenceRepository,
         private readonly Profile $profile,
         private readonly SocialAccount $socialAccount,
         private readonly UserModule $userModule,
@@ -34,13 +33,13 @@ final class RegisterService extends Component
 
         $this->trigger(RegisterEvent::BEFORE, $registerEvent);
 
-        $identityRepository = new IdentityRepository($this->identity);
-
         if ($this->identity->getIsNewRecord() === false) {
-            throw new RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
+            throw new RuntimeException('Calling "' . __CLASS__ . '::run()" on existing user');
         }
 
-        if ($identityRepository->save() === false) {
+        $this->identity->generateAuthKey();
+
+        if ($this->persistenceRepository->save($this->identity) === false) {
             return false;
         }
 
@@ -64,6 +63,7 @@ final class RegisterService extends Component
 
         $this->profile->link('identity', $this->identity);
         $this->socialAccount->link('identity', $this->identity);
+
         $registerForm->id = $this->identity->id;
 
         $this->trigger(RegisterEvent::AFTER, $registerEvent);

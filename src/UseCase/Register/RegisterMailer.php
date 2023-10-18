@@ -31,7 +31,7 @@ final class RegisterMailer
         /** @var Mailer $mailer */
         $mailer->viewPath = '@yii-user/mailer';
         $mailer->view->params = [
-            'logo' => Yii::getAlias('@yii-user/mailer/signature/yii.svg'),
+            'logo' => Yii::getAlias($this->userModule->mailerSignatureImage),
             'signatureText' => $this->userModule->mailerSignatureText,
         ];
 
