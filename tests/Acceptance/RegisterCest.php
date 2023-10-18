@@ -29,6 +29,7 @@ final class RegisterCest
         $I->fillField('#registerform-username', 'admin1');
         $I->fillField('#registerform-password', '123456');
         $I->fillField('#registerform-passwordrepeat', '123456');
+        $I->checkOption('#registerform-accept_terms');
         $I->click('Sign up');
 
         $I->expectTo('see message error validation.');
@@ -48,6 +49,7 @@ final class RegisterCest
         $I->fillField('#registerform-username', 'admin2');
         $I->fillField('#registerform-password', '123456');
         $I->fillField('#registerform-passwordrepeat', '123456');
+        $I->checkOption('#registerform-accept_terms');
         $I->click('Sign up');
 
         $I->expectTo('see message error validation.');
@@ -68,6 +70,7 @@ final class RegisterCest
         $I->expectTo('see registration form.');
         $I->fillField('#registerform-email', 'admin3@example.com');
         $I->fillField('#registerform-username', 'admin3');
+        $I->checkOption('#registerform-accept_terms');
         $I->click('Sign up');
 
         $I->expectTo('see message error validation.');

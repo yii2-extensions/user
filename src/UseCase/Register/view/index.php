@@ -56,7 +56,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             [
                                 'autofocus' => true,
                                 'oninput' => 'this.setCustomValidity("")',
-                                'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Email Here') . '")',
+                                'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Email Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Email'),
                                 'required' => (YII_ENV === 'test') ? false : true,
                                 'tabindex' => '1',
@@ -67,7 +67,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                         ->textInput(
                             [
                                 'oninput' => 'this.setCustomValidity("")',
-                                'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Username Here') . '")',
+                                'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Username Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Username'),
                                 'required' => (YII_ENV === 'test') ? false : true,
                                 'tabindex' => '2',
@@ -79,7 +79,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             ->passwordInput(
                                 [
                                     'oninput' => 'this.setCustomValidity("")',
-                                    'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here') . '")',
+                                    'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
                                     'required' => (YII_ENV === 'test') ? false : true,
                                     'tabindex' => '3',
@@ -90,7 +90,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             ->passwordInput(
                                 [
                                     'oninput' => 'this.setCustomValidity("")',
-                                    'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here') . '")',
+                                    'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
                                     'required' => (YII_ENV === 'test') ? false : true,
                                     'tabindex' => '4',
@@ -98,6 +98,17 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             )
                         ?>
                     <?php endif ?>
+                    <?= $form->field($registerForm, 'accept_terms')
+                        ->checkbox(
+                            [
+                                'class' => 'form-check-input',
+                                'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'You must accept the terms and conditions.') . '")',
+                                'required' => (YII_ENV === 'test') ? false : true,
+                                'tabindex' => '5',
+                                'template' => "<div class=\"form-check form-switch\">\n{input}\n{label}\n{error}\n{hint}\n</div>",
+                            ],
+                        )
+                    ?>
                     <?= Html::beginTag('div', ['class' => 'd-grid gap-2']) ?>
                         <?= Html::submitButton(
                             Yii::t('yii.user', 'Sign up'),

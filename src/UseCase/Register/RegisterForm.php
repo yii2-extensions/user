@@ -11,6 +11,7 @@ use Yii\User\UserModule;
 
 final class RegisterForm extends Model
 {
+    public bool $accept_terms = false;
     public int|null $confirmed_at = null;
     public int|null $created_at = null;
     public string $email = '';
@@ -38,6 +39,13 @@ final class RegisterForm extends Model
     public function rules(): array
     {
         return [
+            // acceptTerms rules
+            'acceptTermsRequired' => [
+                'accept_terms',
+                'compare',
+                'compareValue' => true,
+                'message' => Yii::t('yii.user', 'You must accept the terms and conditions.'),
+            ],
             // create_at only first register
             'createdAtDefault' => ['created_at', 'default', 'value' => time()],
             // confirmed_at only if $this->userModule->confirmation === false
