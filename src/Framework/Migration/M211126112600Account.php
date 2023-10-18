@@ -43,7 +43,7 @@ class M211126112600Account extends BaseMigration
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
-                'fk_account_user',
+                'fk_account_identity',
                 '{{%account}}',
                 'id',
                 '{{%identity}}',

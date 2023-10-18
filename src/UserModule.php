@@ -59,7 +59,6 @@ final class UserModule extends Module
     public function __construct(
         $id,
         Module $module,
-        public readonly bool $accountGeneratingPassword = false,
         public readonly bool $confirmation = false,
         public readonly bool $floatLabels = true,
         public readonly bool $generatePassword = false,

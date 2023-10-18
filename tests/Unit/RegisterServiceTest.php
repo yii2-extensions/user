@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Tests\Unit\Register;
+namespace Yii\User\Tests\Unit;
 
 use Codeception\Stub;
+use Codeception\Test\Unit;
 use RuntimeException;
 use Yii;
 use yii\db\ActiveRecordInterface;
@@ -18,7 +19,7 @@ use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UseCase\Register\RegisterService;
 use Yii\User\UserModule;
 
-final class RegisterServiceTest extends \Codeception\Test\Unit
+final class RegisterServiceTest extends Unit
 {
     public function testRunWithPersistenceRepositoryInterfaceSaveAccountFalse(): void
     {

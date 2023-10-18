@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Tests\Unit\Framework\Repository;
+namespace Yii\User\Tests\Unit;
 
+use Codeception\Test\Unit;
 use yii\db\ActiveRecordInterface;
 use Yii\User\Framework\Repository\FinderRepository;
 use Yii\User\Model\Identity;
 
-final class FinderRepositoryTest extends \Codeception\Test\Unit
+final class FinderRepositoryTest extends Unit
 {
     public function testFindById(): void
     {

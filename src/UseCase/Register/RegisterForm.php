@@ -71,14 +71,14 @@ final class RegisterForm extends Model
             'passwordRequired' => [
                 'password',
                 'required',
-                'skipOnEmpty' => $this->userModule->accountGeneratingPassword
+                'skipOnEmpty' => $this->userModule->generatePassword
             ],
             'passwordLength' => ['password', 'string', 'min' => 6, 'max' => 72],
             // password repeat rules
             'passwordRepeatRequired' => [
                 'passwordRepeat',
                 'required',
-                'skipOnEmpty' => $this->userModule->accountGeneratingPassword
+                'skipOnEmpty' => $this->userModule->generatePassword
             ],
             'passwordRepeatCompare' => [
                 'passwordRepeat',

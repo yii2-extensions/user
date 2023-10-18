@@ -22,7 +22,7 @@ final class RegisterEventHandler implements BootstrapInterface
             RegisterService::class,
             RegisterEvent::AFTER,
             static function (Event $event): void {
-                match ($event->confirmation) {
+                match ($event->userModule->confirmation || $event->userModule->generatePassword) {
                     true => Yii::$app->session->setFlash(
                         'info',
                         Yii::t(

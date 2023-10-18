@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Tests\Unit\Register;
+namespace Yii\User\Tests\Unit;
 
+use Codeception\Test\Unit;
 use Yii;
 use yii\mail\MessageInterface;
 use Yii\User\UseCase\Register\RegisterMailer;
 
 use function verify;
 
-final class RegisterMailerTest extends \Codeception\Test\Unit
+final class RegisterMailerTest extends Unit
 {
     public mixed $tester;
 

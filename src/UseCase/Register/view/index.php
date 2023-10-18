@@ -74,7 +74,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             ],
                         )
                     ?>
-                    <?php if ($userModule->accountGeneratingPassword === false) : ?>
+                    <?php if ($userModule->generatePassword === false) : ?>
                         <?= $form->field($registerForm, 'password')
                             ->passwordInput(
                                 [

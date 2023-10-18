@@ -37,7 +37,7 @@ class M211126113053Profile extends BaseMigration
                 'id',
             );
             $this->addForeignKey(
-                'fk_profile_user',
+                'fk_profile_identity',
                 '{{%profile}}',
                 'id',
                 '{{%identity}}',

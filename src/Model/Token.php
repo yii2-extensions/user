@@ -24,7 +24,7 @@ final class Token extends ActiveRecord
 
     public static function primaryKey(): array
     {
-        return ['identity_id', 'code', 'type'];
+        return ['id', 'code', 'type'];
     }
 
     public static function tableName(): string

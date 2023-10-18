@@ -17,9 +17,18 @@ use yii\db\ActiveRecord;
  * @property string $location
  * @property string $bio
  * @property string $timezone
+ *
+ * Defined relations:
+ * @property Account|null $account
+ * @property Identity|null $identity
  */
 final class Profile extends ActiveRecord
 {
+    public function getAccount(): ActiveQueryInterface
+    {
+        return $this->hasOne(Account::class, ['id' => 'id']);
+    }
+
     public function getIdentity(): ActiveQueryInterface
     {
         return $this->hasOne(Identity::class, ['id' => 'id']);

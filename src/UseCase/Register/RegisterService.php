@@ -29,7 +29,7 @@ final class RegisterService extends Component
 
     public function run(RegisterForm $registerForm): bool
     {
-        $registerEvent = new RegisterEvent($this->userModule->confirmation);
+        $registerEvent = new RegisterEvent($this->userModule);
 
         $this->trigger(RegisterEvent::BEFORE, $registerEvent);
 
@@ -48,14 +48,13 @@ final class RegisterService extends Component
         $this->account->setAttributes($registerForm->getAttributes());
 
         if ($this->userModule->generatePassword === true) {
-            $password = Password::generate(8);
-            $this->account->setAttribute('password', $password);
-        } else {
-            $this->account->setAttribute(
-                'password_hash',
-                (new PasswordHasher(PASSWORD_ARGON2I))->hash($registerForm->password),
-            );
+            $registerForm->password = Password::generate(8);
         }
+
+        $this->account->setAttribute(
+            'password_hash',
+            (new PasswordHasher(PASSWORD_ARGON2I))->hash($registerForm->password),
+        );
 
         if ($this->persistenceRepository->save($this->account) === false) {
             return false;
@@ -64,7 +63,7 @@ final class RegisterService extends Component
         $this->profile->link('identity', $this->identity);
         $this->socialAccount->link('identity', $this->identity);
 
-        $registerForm->id = $this->identity->id;
+        $registerForm->id = $this->identity->getId();
 
         $this->trigger(RegisterEvent::AFTER, $registerEvent);
 

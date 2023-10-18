@@ -31,7 +31,7 @@ class M211126112801Token extends BaseMigration
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
-                'fk_token_user',
+                'fk_token_identity',
                 '{{%token}}',
                 'id',
                 '{{%identity}}',

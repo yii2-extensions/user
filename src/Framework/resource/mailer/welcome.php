@@ -17,7 +17,10 @@ use yii\bootstrap5\Html;
 
 <p>
     <?= Yii::t('yii.user', 'Your account on {0} has been created.', [Yii::$app->name]) ?>
+
     <?php if ($showPassword): ?>
+        <br/>
+        <br/>
         <?= Yii::t('yii.user', 'We have generated a password for you') ?>: <strong><?= $password ?></strong>
     <?php endif ?>
 </p>

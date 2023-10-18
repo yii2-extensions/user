@@ -36,7 +36,7 @@ final class Identity extends ActiveRecord implements IdentityInterface
 
     public static function findIdentityByAccessToken(mixed $token, mixed $type = null)
     {
-        throw new NotSupportedException('Method "' . __CLASS__ . '::' . __METHOD__ . '" is not implemented.');
+        throw new NotSupportedException('Method "' . __CLASS__ . '::findIdentityByAccessToken" is not implemented.');
     }
 
     public function generateAuthKey(): void

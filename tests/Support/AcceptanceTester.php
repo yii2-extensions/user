@@ -37,4 +37,16 @@ class AcceptanceTester extends \Codeception\Actor
             ],
         );
     }
+
+    public function accountGeneratePassword(bool $option): void
+    {
+        \Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'generatePassword' => $option,
+                ],
+            ],
+        );
+    }
 }
