@@ -6,7 +6,7 @@ use Yii\User\Framework\Migration\BaseMigration;
 
 class M211126112801Token extends BaseMigration
 {
-    public function up(): void
+    public function up(): bool
     {
         $id = $this->primaryKey();
 
@@ -40,10 +40,14 @@ class M211126112801Token extends BaseMigration
                 $this->restrict,
             );
         }
+
+        return true;
     }
 
-    public function down(): void
+    public function down(): bool
     {
         $this->dropTable('{{%token}}');
+
+        return true;
     }
 }

@@ -41,16 +41,16 @@ final class TokenToUrl
 
     public function isExpired(Token $token): bool
     {
-        $expirationTime = match ($token->getType()) {
+        $expirationTime = match ($token->type) {
             UserModule::TYPE_CONFIRMATION,
             UserModule::TYPE_CONFIRM_NEW_EMAIL,
             UserModule::TYPE_CONFIRM_OLD_EMAIL => $this->userModule->tokenConfirmWithin,
             UserModule::TYPE_RECOVERY => $this->userModule->tokenRecoverWithin,
-            UserModule::TYPE_CONFIRM_2FA => $this->userModule->token2faWithin,
+            UserModule::TYPE_CONFIRM_2FA => $this->userModule->token2FAWithin,
             default => throw new RuntimeException('Expired not available.'),
         };
 
-        return ($token->getCreateAt() + $expirationTime) < time();
+        return ($token->created_at + $expirationTime) < time();
     }
 
     private function register(int $id, int $type): bool

@@ -14,7 +14,7 @@ final class FinderRepository
         int $id,
         string $key = 'id',
     ): ActiveRecordInterface|array|null {
-        return $id !== '' ? $this->findByOneCondition($model, [$key => $id]) : null;
+        return $this->findByOneCondition($model, [$key => $id]);
     }
 
     public function findByOneCondition(ActiveRecordInterface $model, array $condition): ActiveRecordInterface|array|null

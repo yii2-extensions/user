@@ -6,7 +6,7 @@ use Yii\User\Framework\Migration\BaseMigration;
 
 class M211126112534Identity extends BaseMigration
 {
-    public function up(): void
+    public function up(): bool
     {
         $this->createTable(
             '{{%identity}}',
@@ -16,10 +16,14 @@ class M211126112534Identity extends BaseMigration
             ],
             $this->tableOptions,
         );
+
+        return true;
     }
 
-    public function down()
+    public function down(): bool
     {
         $this->dropTable('{{%identity}}');
+
+        return true;
     }
 }
