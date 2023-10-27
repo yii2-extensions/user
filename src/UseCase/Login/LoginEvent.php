@@ -17,8 +17,7 @@ final class LoginEvent extends Event
         public readonly Model $model,
         public readonly UserModule $userModule,
         array $config = []
-    )
-    {
+    ) {
         parent::__construct($config);
     }
 }
