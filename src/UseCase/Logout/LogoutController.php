@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Yii\User\UseCase\Logout;
 
@@ -24,7 +24,6 @@ final class LogoutController extends Controller
         parent::__construct($id, $module, $config);
     }
 
-
     public function behaviors(): array
     {
         return [
@@ -44,7 +43,6 @@ final class LogoutController extends Controller
                     'index' => ['POST'],
                 ],
             ],
-
         ];
     }
 

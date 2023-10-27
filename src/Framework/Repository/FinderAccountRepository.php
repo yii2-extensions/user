@@ -23,7 +23,8 @@ final class FinderAccountRepository
         return $this->finderRepository->findByOneCondition($this->account, ['username' => $username]);
     }
 
-    public function findByUsernameOrEmail(string $usernameOrEmail): ActiveRecordInterface|array|null {
+    public function findByUsernameOrEmail(string $usernameOrEmail): ActiveRecordInterface|array|null
+    {
         return filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)
             ? $this->findByEmail($usernameOrEmail)
             : $this->findByUsername($usernameOrEmail);

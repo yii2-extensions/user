@@ -2,13 +2,7 @@
 
 declare(strict_types=1);
 
-use yii\symfonymailer\Mailer;
 use Yii\User\Framework\EventHandler\RegisterEventHandler;
-use Yii\User\Framework\Repository\PersistenceRepository;
-use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
-use Yii\User\Tests\Support\Data\UseCase\Site\SiteController;
-use Yii\User\UseCase\Register\RegisterController;
-use Yii\User\UserModule;
 use yii\web\Session;
 
 /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yii\User\UseCase\Logout;
 
 use yii\base\Event;
-use yii\base\Model;
 use Yii\User\UserModule;
 
 final class LogoutEvent extends Event

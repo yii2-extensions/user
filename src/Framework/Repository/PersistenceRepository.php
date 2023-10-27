@@ -19,7 +19,8 @@ final class PersistenceRepository extends AbstractRepository implements Persiste
         return $this->execute($ar->getDb(), static fn (): bool => $ar->save());
     }
 
-    public function updateAtttributes(ActiveRecord $ar, array $attributes): bool {
+    public function updateAtttributes(ActiveRecord $ar, array $attributes): bool
+    {
         return $this->execute(
             $ar->getDb(),
             static fn (): bool => $ar->updateAttributes($attributes) > 0,
