@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Yii\User\UseCase\Login;
 
@@ -36,7 +36,6 @@ final class LoginController extends Controller
     ) {
         parent::__construct($id, $module, $config);
     }
-
 
     public function behaviors(): array
     {
