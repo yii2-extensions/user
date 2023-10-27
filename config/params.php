@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\UseCase\Login\LoginController;
+use Yii\User\UseCase\Logout\LogoutController;
 use Yii\User\UseCase\Register\RegisterController;
 
 return [
@@ -11,6 +13,12 @@ return [
         '@yii-user/migration' => '@yii-user/src/Framework/Migration',
     ],
     'app.controllerMap' => [
+        'login' => [
+            'class' => LoginController::class,
+        ],
+        'logout' => [
+            'class' => LogoutController::class,
+        ],
         'register' => [
             'class' => RegisterController::class,
         ],
@@ -20,9 +28,24 @@ return [
     ],
     'app.menu.isguest' => [
         [
-            'label' => \Yii::t('app.basic', 'Register'),
+            'label' => \Yii::t('yii.user', 'Register'),
             'url' => ['/register/index'],
-            'order' => 3,
+            'order' => 1,
+        ],
+        [
+            'label' => \Yii::t('yii.user', 'Login'),
+            'url' => ['/login/index'],
+            'order' => 2,
+        ],
+    ],
+    'app.menu.islogged' => [
+        [
+            'label' => \Yii::t('yii.user', 'Logout'),
+            'url' => ['/logout/index'],
+            'order' => 1,
+            'linkOptions' => [
+                'data-method' => 'post',
+            ],
         ],
     ],
 ];

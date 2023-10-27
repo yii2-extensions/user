@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Yii\User\Framework\Migration\BaseMigration;
 
-class M211126113053Profile extends BaseMigration
+final class M211126113053Profile extends BaseMigration
 {
     public function up(): bool
     {

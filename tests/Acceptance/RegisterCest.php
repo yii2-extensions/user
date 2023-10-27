@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Yii\User\Tests\Acceptance;
 
+use Yii;
 use Yii\User\Tests\Support\AcceptanceTester;
 
 final class RegisterCest
 {
     public function indexPage(AcceptanceTester $I): void
     {
-        $I->amGoingTo('navigate to the Register page.');
+        $I->amGoingTo('navigate to the register page.');
         $I->amOnRoute('register/index');
 
-        $I->wantTo('ensure that About page works.');
+        $I->wantTo('ensure that register page works.');
         $I->expectTo('see page index.');
-        $I->see('Sign up', 'h1');
-        $I->see('Please fill out the following fields to Sign up.');
+        $I->see(Yii::t('yii.user', 'Sign up'), 'h1');
+        $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign up.'));
     }
 
     public function success(AcceptanceTester $I): void
@@ -30,10 +31,10 @@ final class RegisterCest
         $I->fillField('#registerform-password', '123456');
         $I->fillField('#registerform-passwordrepeat', '123456');
         $I->checkOption('#registerform-accept_terms');
-        $I->click('Sign up');
+        $I->click(Yii::t('yii.user', 'Sign up'));
 
-        $I->expectTo('see message error validation.');
-        $I->see('Your account has been created.');
+        $I->expectTo('see message create user.');
+        $I->see(Yii::t('yii.user', 'Your account has been created.'));
     }
 
     public function successWithConfirmTrue(AcceptanceTester $I): void
@@ -50,10 +51,15 @@ final class RegisterCest
         $I->fillField('#registerform-password', '123456');
         $I->fillField('#registerform-passwordrepeat', '123456');
         $I->checkOption('#registerform-accept_terms');
-        $I->click('Sign up');
+        $I->click(Yii::t('yii.user', 'Sign up'));
 
-        $I->expectTo('see message error validation.');
-        $I->see('Your account has been created. Please check your email for further instructions.');
+        $I->expectTo('see message create user with email confirmation.');
+        $I->see(
+            Yii::t(
+                'yii.user',
+                'Your account has been created. Please check your email for further instructions.',
+            ),
+        );
 
         $I->amGoingTo('set confirmation false.');
         $I->accountConfirmation(false);
@@ -71,10 +77,15 @@ final class RegisterCest
         $I->fillField('#registerform-email', 'admin3@example.com');
         $I->fillField('#registerform-username', 'admin3');
         $I->checkOption('#registerform-accept_terms');
-        $I->click('Sign up');
+        $I->click(Yii::t('yii.user', 'Sign up'));
 
-        $I->expectTo('see message error validation.');
-        $I->see('Your account has been created. Please check your email for further instructions.');
+        $I->expectTo('see message create user with email confirmation.');
+        $I->see(
+            Yii::t(
+                'yii.user',
+                'Your account has been created. Please check your email for further instructions.',
+            ),
+        );
 
         $I->amGoingTo('set confirmation false.');
         $I->accountConfirmation(false);

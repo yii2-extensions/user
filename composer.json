@@ -63,7 +63,15 @@
         "config-plugin-environments": {
             "tests": {
                 "console": "tests/console/*.php",
-                "web": "tests/web/*.php"
+                "web": [
+                    "web/*.php",
+                    "tests/web/*.php"
+                ],
+                "params": "params.php",
+                "params-web": [
+                    "$params",
+                    "tests/params-web.php"
+                ]
             }
         },
         "installer-types": ["bower-asset", "npm-asset"],

@@ -8,8 +8,8 @@ use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
+use Yii\User\UseCase\Register\RegisterController;
 use Yii\User\UseCase\Register\RegisterEvent;
-use Yii\User\UseCase\Register\RegisterService;
 
 final class RegisterEventHandler implements BootstrapInterface
 {
@@ -19,8 +19,8 @@ final class RegisterEventHandler implements BootstrapInterface
     public function bootstrap($app): void
     {
         Event::on(
-            RegisterService::class,
-            RegisterEvent::AFTER,
+            RegisterController::class,
+            RegisterEvent::AFTER_REGISTER,
             static function (RegisterEvent $registerEvent): void {
                 match ($registerEvent->userModule->confirmation || $registerEvent->userModule->generatePassword) {
                     true => Yii::$app->session->setFlash(
@@ -32,10 +32,7 @@ final class RegisterEventHandler implements BootstrapInterface
                     ),
                     false => Yii::$app->session->setFlash(
                         'success',
-                        Yii::t(
-                            'yii.user',
-                            'Your account has been created.',
-                        ),
+                        Yii::t('yii.user', 'Your account has been created.'),
                     ),
                 };
             },
