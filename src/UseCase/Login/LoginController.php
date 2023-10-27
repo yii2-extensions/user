@@ -10,6 +10,7 @@ use Yii\User\Framework\Repository\FinderAccountRepository;
 use Yii\User\Model\Account;
 use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
+use yii\web\Request;
 use yii\web\Response;
 use yii\web\User;
 use Yiisoft\Security\PasswordHasher;
@@ -62,7 +63,11 @@ final class LoginController extends Controller
     {
         $account = null;
 
-        if ($this->request->getIsPost() === true && $this->request->post('LoginForm') !== null) {
+        if (
+            $this->request instanceof Request &&
+            $this->request->getIsPost() === true &&
+            $this->request->post('LoginForm') !== null
+        ) {
             $login = $this->request->post('LoginForm')['login'] ?? '';
             /** @var Account|null $account */
             $account = $this->finderAccountRepository->findByUsernameOrEmail($login);
@@ -75,6 +80,7 @@ final class LoginController extends Controller
         $this->performAjaxValidation($loginForm);
 
         if (
+            $this->request instanceof Request &&
             $loginForm->load($this->request->post()) &&
             $loginForm->validate() &&
             $this->loginService->run($account, $loginForm->autoLogin())

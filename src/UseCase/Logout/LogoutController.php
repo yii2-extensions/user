@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use Yii\User\UserModule;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\User;
 
 final class LogoutController extends Controller
 {
@@ -18,6 +19,7 @@ final class LogoutController extends Controller
     public function __construct(
         $id,
         Module $module,
+        private readonly User $user,
         private readonly UserModule $userModule,
         array $config = []
     ) {
@@ -54,7 +56,7 @@ final class LogoutController extends Controller
 
         $this->trigger(LogoutEvent::BEFORE_LOGOUT, $event);
 
-        $this->module->user->logout();
+        $this->user->logout();
 
         $this->trigger(LogoutEvent::AFTER_LOGOUT, $event);
 

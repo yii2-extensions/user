@@ -11,6 +11,7 @@ use yii\symfonymailer\Mailer;
 use Yii\User\Service\TokenToUrl;
 use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
+use yii\web\Request;
 use yii\web\Response;
 
 final class RegisterController extends Controller
@@ -59,7 +60,11 @@ final class RegisterController extends Controller
         $this->trigger(RegisterEvent::BEFORE_REGISTER, $event);
         $this->performAjaxValidation($registerForm);
 
-        if ($registerForm->load($this->request->post()) && $registerForm->validate()) {
+        if (
+            $this->request instanceof Request &&
+            $registerForm->load($this->request->post()) &&
+            $registerForm->validate()
+        ) {
             $registerForm->registration_ip = $this->request->userIP;
 
             if ($this->registerService->run($registerForm)) {

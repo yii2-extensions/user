@@ -12,6 +12,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
+        "ext-filter": "*",
         "npm-asset/fortawesome--fontawesome-free": "^6.4",
         "oomphinc/composer-installers-extender": "^2.0",
         "php-forge/helpers": "dev-main",
