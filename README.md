@@ -24,10 +24,10 @@
     </a>
     <a href="https://github.com/yii2-extensions/user/actions/workflows/static.yml" target="_blank">
         <img src="https://img.shields.io/badge/PHPStan%20level-5-blue" alt="PHPStan level">
-    </a>    
-    <a href="https://github.styleci.io/repos/704445204?branch=initial-commit" target="_blank">
-        <img src="https://github.styleci.io/repos/704445204/shield?branch=initial-commit" alt="Code style">
-    </a>    
+    </a>
+    <a href="https://github.styleci.io/repos/704445204?branch=main" target="_blank">
+        <img src="https://github.styleci.io/repos/704445204/shield?branch=main" alt="Code style">
+    </a>        
 </p>
 
 ## Installation
