@@ -29,10 +29,6 @@ final class RegisterService extends Component
 
     public function run(RegisterForm $registerForm): bool
     {
-        $registerEvent = new RegisterEvent($this->userModule);
-
-        $this->trigger(RegisterEvent::BEFORE, $registerEvent);
-
         if ($this->identity->getIsNewRecord() === false) {
             throw new RuntimeException('Calling "' . __CLASS__ . '::run()" on existing user');
         }
@@ -64,8 +60,6 @@ final class RegisterService extends Component
         $this->socialAccount->link('identity', $this->identity);
 
         $registerForm->id = $this->identity->getId();
-
-        $this->trigger(RegisterEvent::AFTER, $registerEvent);
 
         return true;
     }

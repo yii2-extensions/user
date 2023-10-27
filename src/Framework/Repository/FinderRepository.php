@@ -9,21 +9,18 @@ use yii\db\ActiveRecordInterface;
 
 final class FinderRepository
 {
-    public function findById(
-        ActiveRecordInterface $model,
-        int $id,
-        string $key = 'id',
-    ): ActiveRecordInterface|array|null {
-        return $this->findByOneCondition($model, [$key => $id]);
+    public function findById(ActiveRecordInterface $ar, int $id, string $key = 'id'): ActiveRecordInterface|array|null
+    {
+        return $this->findByOneCondition($ar, [$key => $id]);
     }
 
-    public function findByOneCondition(ActiveRecordInterface $model, array $condition): ActiveRecordInterface|array|null
+    public function findByOneCondition(ActiveRecordInterface $ar, array $condition): ActiveRecordInterface|array|null
     {
-        return $model::findOne($condition);
+        return $ar->findOne($condition);
     }
 
-    public function findByWhereCondition(ActiveRecordInterface $model, array $condition): ActiveQueryInterface
+    public function findByWhereCondition(ActiveRecordInterface $ar, array $condition): ActiveQueryInterface
     {
-        return $model::find()->where($condition);
+        return $ar->find()->where($condition);
     }
 }

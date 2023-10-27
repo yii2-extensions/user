@@ -44,6 +44,16 @@ final class Account extends ActiveRecord
         return $this->hasOne(Profile::class, ['id' => 'id']);
     }
 
+    public function isBlocked(): bool
+    {
+        return $this->blocked_at > 0;
+    }
+
+    public function isConfirmed(): bool
+    {
+        return $this->confirmed_at > 0;
+    }
+
     public function scenarios(): array
     {
         return array_merge(

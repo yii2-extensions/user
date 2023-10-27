@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 use sjaakp\icon\Icon;
 use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
+use yii\helpers\Html;
 use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UserModule;
 use yii\web\View;
 
 /**
- * @var RegisterForm $registerForm
+ * @var RegisterForm $formModel
  * @var UserModule $userModule
  * @var View $this
  **/
@@ -34,76 +34,66 @@ $this->title = Yii::t('yii.user', 'Sign up');
                 <?php $form = ActiveForm::begin(
                     [
                         'id' => 'register-form',
-                        'layout' => 'default',
+                        'layout' => $userModule->floatLabels ? ActiveForm::LAYOUT_FLOATING : ActiveForm::LAYOUT_DEFAULT,
                         'enableAjaxValidation' => true,
                         'enableClientValidation' => false,
-                        'fieldConfig' => [
-                            'horizontalCssClasses' => [
-                                'error' => 'text-center',
-                                'field' => 'form-floating',
-                            ],
-                            'options' => ['class' => 'form-floating mb-4'],
-                            'template' => ($userModule->floatLabels) ?
-                                '{input}{label}{hint}{error}' :
-                                '<div>{label}{input}{hint}{error}</div>',
-                        ],
                         'validateOnType' => false,
                         'validateOnChange' => false,
                     ],
                 ) ?>
-                    <?= $form->field($registerForm, 'email')
+                    <?= $form->field($formModel, 'email')
                         ->textInput(
                             [
                                 'autofocus' => true,
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Email Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Email'),
-                                'required' => (YII_ENV === 'test') ? false : true,
+                                'required' => (YII_ENV === 'tests') ? false : true,
                                 'tabindex' => '1',
                             ],
                         )
                     ?>
-                    <?= $form->field($registerForm, 'username')
+                    <?= $form->field($formModel, 'username')
                         ->textInput(
                             [
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Username Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Username'),
-                                'required' => (YII_ENV === 'test') ? false : true,
+                                'required' => (YII_ENV === 'tests') ? false : true,
                                 'tabindex' => '2',
                             ],
                         )
                     ?>
                     <?php if ($userModule->generatePassword === false) : ?>
-                        <?= $form->field($registerForm, 'password')
+                        <?= $form->field($formModel, 'password')
                             ->passwordInput(
                                 [
                                     'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
-                                    'required' => (YII_ENV === 'test') ? false : true,
+                                    'required' => (YII_ENV === 'tests') ? false : true,
                                     'tabindex' => '3',
                                 ]
                             )
                         ?>
-                        <?= $form->field($registerForm, 'passwordRepeat')
+                        <?= $form->field($formModel, 'passwordRepeat')
                             ->passwordInput(
                                 [
                                     'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
-                                    'required' => (YII_ENV === 'test') ? false : true,
+                                    'required' => (YII_ENV === 'tests') ? false : true,
                                     'tabindex' => '4',
                                 ]
                             )
                         ?>
                     <?php endif ?>
-                    <?= $form->field($registerForm, 'accept_terms')
+                    <?= $form->field($formModel, 'accept_terms')
                         ->checkbox(
                             [
                                 'class' => 'form-check-input',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'You must accept the terms and conditions.') . '")',
-                                'required' => (YII_ENV === 'test') ? false : true,
+                                'required' => (YII_ENV === 'tests') ? false : true,
                                 'tabindex' => '5',
                                 'template' => "<div class=\"form-check form-switch\">\n{input}\n{label}\n{error}\n{hint}\n</div>",
                             ],

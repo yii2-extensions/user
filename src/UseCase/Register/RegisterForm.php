@@ -21,7 +21,7 @@ final class RegisterForm extends Model
     public string $registration_ip = '';
     public string $username = '';
 
-    public function __construct(public readonly UserModule $userModule, array $config = [])
+    public function __construct(private readonly UserModule $userModule, array $config = [])
     {
         parent::__construct($config);
     }

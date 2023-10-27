@@ -8,21 +8,25 @@ use yii\base\Module;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\symfonymailer\Mailer;
-use Yii\User\Framework\Event\FormEvent;
 use Yii\User\Service\TokenToUrl;
 use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
 use yii\web\Request;
+use yii\web\Response;
 
 final class RegisterController extends Controller
 {
+    /**
+     * @phpstan-var class-string<RegisterForm>
+     */
+    public string $formModelClass = RegisterForm::class;
     public $layout = '@resource/layout/main';
+    public string $viewPath = __DIR__ . '/view';
 
     public function __construct(
         $id,
         Module $module,
         private readonly Mailer $mailer,
-        private readonly RegisterForm $registerForm,
         private readonly RegisterMailer $registerMailer,
         private readonly RegisterService $registerService,
         private readonly TokenToUrl $tokenToUrl,
@@ -48,28 +52,29 @@ final class RegisterController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(): Response|string
     {
-        $event = new FormEvent($this->registerForm);
+        $registerForm = new $this->formModelClass($this->userModule);
+        $event = new RegisterEvent($registerForm, $this->userModule);
 
-        $this->trigger(FormEvent::BEFORE_REGISTER, $event);
-        $this->performAjaxValidation($this->registerForm);
+        $this->trigger(RegisterEvent::BEFORE_REGISTER, $event);
+        $this->performAjaxValidation($registerForm);
 
         if (
             $this->request instanceof Request &&
-            $this->registerForm->load($this->request->post()) &&
-            $this->registerForm->validate()
+            $registerForm->load($this->request->post()) &&
+            $registerForm->validate()
         ) {
-            $this->registerForm->registration_ip = $this->request->userIP;
+            $registerForm->registration_ip = $this->request->userIP;
 
-            if ($this->registerService->run($this->registerForm)) {
+            if ($this->registerService->run($registerForm)) {
                 if ($this->userModule->confirmation) {
                     $url = Url::toRoute(
                         [
                             $this->userModule->urlConfirmation,
-                            'id' => $this->registerForm->id,
+                            'id' => $registerForm->id,
                             'code' => $this->tokenToUrl->run(
-                                $this->registerForm->id,
+                                $registerForm->id,
                                 UserModule::TYPE_CONFIRMATION,
                             ),
                         ],
@@ -79,13 +84,13 @@ final class RegisterController extends Controller
 
                 $this->registerMailer->send(
                     $this->mailer,
-                    $this->registerForm->email,
-                    $this->registerForm->username,
-                    $this->registerForm->password,
+                    $registerForm->email,
+                    $registerForm->username,
+                    $registerForm->password,
                     $url ?? null,
                 );
 
-                $this->trigger(FormEvent::AFTER_REGISTER, $event);
+                $this->trigger(RegisterEvent::AFTER_REGISTER, $event);
             }
 
             return $this->goHome();
@@ -93,12 +98,12 @@ final class RegisterController extends Controller
 
         return $this->render(
             'index',
-            ['registerForm' => $this->registerForm, 'userModule' => $this->userModule],
+            ['formModel' => $registerForm, 'userModule' => $this->userModule],
         );
     }
 
     public function getViewPath(): string
     {
-        return __DIR__ . '/view';
+        return $this->viewPath;
     }
 }

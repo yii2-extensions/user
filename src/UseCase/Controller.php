@@ -6,9 +6,9 @@ namespace Yii\User\UseCase;
 
 use Yii;
 use yii\base\Model;
+use yii\bootstrap5\ActiveForm;
 use yii\web\Request;
 use yii\web\Response;
-use yii\widgets\ActiveForm;
 
 class Controller extends \yii\web\Controller
 {

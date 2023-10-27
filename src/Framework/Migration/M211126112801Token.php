@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Yii\User\Framework\Migration\BaseMigration;
 
-class M211126112801Token extends BaseMigration
+final class M211126112801Token extends BaseMigration
 {
     public function up(): bool
     {

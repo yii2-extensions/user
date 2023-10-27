@@ -23,7 +23,8 @@ require "$rootDir/vendor/yiisoft/yii2/Yii.php";
 $config = new Config(
     new ConfigPaths($rootDir, 'config', 'vendor'),
     'tests',
-    [RecursiveMerge::groups('web')],
+    [RecursiveMerge::groups('web', 'params-web')],
+    'params-web',
 );
 
 (new yii\web\Application($config->get('web')))->run();
