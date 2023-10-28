@@ -50,4 +50,7 @@ return [
             ],
         ],
     ],
+    'console.aliases' => [
+        '@yii-user/migration' => '@yii-user/src/Framework/Migration',
+    ],
 ];
