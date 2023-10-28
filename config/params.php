@@ -31,12 +31,12 @@ return [
             [
                 'label' => \Yii::t('yii.user', 'Register'),
                 'url' => ['/register/index'],
-                'order' => 1,
+                'order' => 3,
             ],
             [
                 'label' => \Yii::t('yii.user', 'Login'),
                 'url' => ['/login/index'],
-                'order' => 2,
+                'order' => 4,
             ],
         ],
         'app.menu.islogged' => [
