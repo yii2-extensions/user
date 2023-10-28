@@ -26,25 +26,27 @@ return [
     'app.events' => [
         __DIR__ . '/events/AccountModel.php',
     ],
-    'app.menu.isguest' => [
-        [
-            'label' => \Yii::t('yii.user', 'Register'),
-            'url' => ['/register/index'],
-            'order' => 1,
+    'app.params' => [
+        'app.menu.isguest' => [
+            [
+                'label' => \Yii::t('yii.user', 'Register'),
+                'url' => ['/register/index'],
+                'order' => 1,
+            ],
+            [
+                'label' => \Yii::t('yii.user', 'Login'),
+                'url' => ['/login/index'],
+                'order' => 2,
+            ],
         ],
-        [
-            'label' => \Yii::t('yii.user', 'Login'),
-            'url' => ['/login/index'],
-            'order' => 2,
-        ],
-    ],
-    'app.menu.islogged' => [
-        [
-            'label' => \Yii::t('yii.user', 'Logout'),
-            'url' => ['/logout/index'],
-            'order' => 1,
-            'linkOptions' => [
-                'data-method' => 'post',
+        'app.menu.islogged' => [
+            [
+                'label' => \Yii::t('yii.user', 'Logout'),
+                'url' => ['/logout/index'],
+                'order' => 1,
+                'linkOptions' => [
+                    'data-method' => 'post',
+                ],
             ],
         ],
     ],

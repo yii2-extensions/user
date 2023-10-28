@@ -39,6 +39,6 @@ return [
     'on beforeAction' => static function (): void {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     },
-    'params' => $params,
+    'params' => $params['app.params'] ?? [],
     'runtimePath' => dirname(__DIR__, 3) . '/tests/Support/Data/public/runtime',
 ];
