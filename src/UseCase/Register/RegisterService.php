@@ -24,7 +24,9 @@ final class RegisterService extends Component
         private readonly Profile $profile,
         private readonly SocialAccount $socialAccount,
         private readonly UserModule $userModule,
+        array $config = [],
     ) {
+        parent::__construct($config);
     }
 
     public function run(RegisterForm $registerForm): bool

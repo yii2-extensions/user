@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Yii\User\Framework\Migration;
 
 use RuntimeException;
-use yii\db\Migration;
 
-class BaseMigration extends Migration
+class Migration extends \yii\db\Migration
 {
     protected string $tableOptions = '';
     protected string $restrict = 'RESTRICT';

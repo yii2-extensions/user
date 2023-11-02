@@ -21,11 +21,11 @@ abstract class AbstractRepository
         try {
             /** @var bool $result */
             $result = $operation();
-            $transaction->commit();
+            $transaction?->commit();
 
             return $result;
         } catch (Exception $e) {
-            $transaction->rollBack();
+            $transaction?->rollBack();
             Yii::error($e->getMessage(), __METHOD__);
         }
 

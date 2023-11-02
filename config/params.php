@@ -23,27 +23,27 @@ return [
             'class' => RegisterController::class,
         ],
     ],
-    'app.events' => [
-        __DIR__ . '/events/AccountModel.php',
-    ],
     'app.params' => [
         'app.menu.isguest' => [
             [
-                'label' => \Yii::t('yii.user', 'Register'),
+                'label' => 'Register',
                 'url' => ['/register/index'],
                 'order' => 3,
+                'category' =>'yii.user',
             ],
             [
-                'label' => \Yii::t('yii.user', 'Login'),
+                'label' => 'Login',
                 'url' => ['/login/index'],
                 'order' => 4,
+                'category' =>'yii.user',
             ],
         ],
         'app.menu.islogged' => [
             [
-                'label' => \Yii::t('yii.user', 'Logout'),
+                'label' => 'Logout',
                 'url' => ['/logout/index'],
                 'order' => 1,
+                'category' =>'yii.user',
                 'linkOptions' => [
                     'data-method' => 'post',
                 ],

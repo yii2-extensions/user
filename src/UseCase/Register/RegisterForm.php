@@ -40,55 +40,43 @@ final class RegisterForm extends Model
     {
         return [
             // acceptTerms rules
-            'acceptTermsRequired' => [
+            [
                 'accept_terms',
                 'compare',
                 'compareValue' => true,
                 'message' => Yii::t('yii.user', 'You must accept the terms and conditions.'),
             ],
             // create_at only first register
-            'createdAtDefault' => ['created_at', 'default', 'value' => time()],
+            ['created_at', 'default', 'value' => time()],
             // confirmed_at only if $this->userModule->confirmation === false
-            'confirmedAtDefault' => [
-                'confirmed_at',
-                'default',
-                'value' => $this->userModule->confirmation ? 0 : time(),
-            ],
+            ['confirmed_at', 'default', 'value' => $this->userModule->confirmation ? 0 : time()],
             // username rules
-            'usernameTrim' => ['username', 'trim'],
-            'usernameLength' => ['username', 'string', 'min' => 3, 'max' => 255],
-            'usernamePattern' => ['username', 'match', 'pattern' => $this->userModule->usernameRegex],
-            'usernameRequired' => ['username', 'required'],
-            'usernameUnique' => [
+            ['username', 'trim'],
+            ['username', 'string', 'min' => 3, 'max' => 255],
+            ['username', 'match', 'pattern' => $this->userModule->usernameRegex],
+            ['username', 'required'],
+            [
                 'username',
                 'unique',
                 'targetClass' => Account::class,
                 'message' => Yii::t('yii.user', 'This username has already been taken.'),
             ],
             // email rules
-            'emailTrim' => ['email', 'trim'],
-            'emailRequired' => ['email', 'required'],
-            'emailPattern' => ['email', 'email'],
-            'emailUnique' => [
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            [
                 'email',
                 'unique',
                 'targetClass' => Account::class,
                 'message' => Yii::t('yii.user', 'This email address has already been taken.'),
             ],
             // password rules
-            'passwordRequired' => [
-                'password',
-                'required',
-                'skipOnEmpty' => $this->userModule->generatePassword,
-            ],
-            'passwordLength' => ['password', 'string', 'min' => 6, 'max' => 72],
+            ['password', 'required', 'skipOnEmpty' => $this->userModule->generatePassword],
+            ['password', 'string', 'min' => 6, 'max' => 72],
             // password repeat rules
-            'passwordRepeatRequired' => [
-                'passwordRepeat',
-                'required',
-                'skipOnEmpty' => $this->userModule->generatePassword,
-            ],
-            'passwordRepeatCompare' => [
+            ['passwordRepeat', 'required', 'skipOnEmpty' => $this->userModule->generatePassword],
+            [
                 'passwordRepeat',
                 'compare',
                 'compareAttribute' => 'password',
