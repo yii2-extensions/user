@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Framework\Migration;
+use Yii\User\Framework\Migration\Migration;
 
 final class M211126112801Token extends Migration
 {
