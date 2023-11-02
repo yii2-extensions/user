@@ -7,11 +7,11 @@ namespace Yii\User\UseCase\Register;
 use PHPForge\Helpers\Password;
 use RuntimeException;
 use yii\base\Component;
+use Yii\CoreLibrary\Repository\PersistenceRepositoryInterface;
 use Yii\User\ActiveRecord\Account;
 use Yii\User\ActiveRecord\Identity;
 use Yii\User\ActiveRecord\Profile;
 use Yii\User\ActiveRecord\SocialAccount;
-use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
 use Yii\User\UserModule;
 use Yiisoft\Security\PasswordHasher;
 

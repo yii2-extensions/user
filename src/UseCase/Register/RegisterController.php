@@ -5,17 +5,20 @@ declare(strict_types=1);
 namespace Yii\User\UseCase\Register;
 
 use yii\base\Module;
+use Yii\CoreLibrary\Validator\AjaxValidator;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\symfonymailer\Mailer;
 use Yii\User\Service\TokenToUrl;
-use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
+use yii\web\Controller;
 use yii\web\Request;
 use yii\web\Response;
 
 final class RegisterController extends Controller
 {
+    use AjaxValidator;
+
     /**
      * @phpstan-var class-string<RegisterForm>
      */

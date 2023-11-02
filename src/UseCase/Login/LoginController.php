@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Yii\User\UseCase\Login;
 
 use yii\base\Module;
+use Yii\CoreLibrary\Validator\AjaxValidator;
 use yii\filters\AccessControl;
 use Yii\User\ActiveRecord\Account;
 use Yii\User\Framework\Repository\FinderAccountRepository;
-use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
+use yii\web\Controller;
 use yii\web\Request;
 use yii\web\Response;
 use yii\web\User;
@@ -17,6 +18,8 @@ use Yiisoft\Security\PasswordHasher;
 
 final class LoginController extends Controller
 {
+    use AjaxValidator;
+
     /**
      * @phpstan-var class-string<LoginForm>
      */

@@ -8,13 +8,12 @@ use Codeception\Stub;
 use Codeception\Test\Unit;
 use RuntimeException;
 use Yii;
+use Yii\CoreLibrary\Repository\PersistenceRepositoryInterface;
 use yii\db\ActiveRecordInterface;
 use Yii\User\ActiveRecord\Account;
 use Yii\User\ActiveRecord\Identity;
 use Yii\User\ActiveRecord\Profile;
 use Yii\User\ActiveRecord\SocialAccount;
-use Yii\User\Framework\Repository\PersistenceRepository;
-use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
 use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UseCase\Register\RegisterService;
 use Yii\User\UserModule;
@@ -84,7 +83,7 @@ final class RegisterServiceTest extends Unit
         $registerService = new RegisterService(
             Yii::$container->get(Account::class),
             $identity,
-            Yii::$container->get(PersistenceRepository::class),
+            Yii::$container->get(PersistenceRepositoryInterface::class),
             Yii::$container->get(Profile::class),
             Yii::$container->get(SocialAccount::class),
             Yii::$container->get(UserModule::class),

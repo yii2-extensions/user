@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Yii\User\UseCase\Login;
 
+use Yii\CoreLibrary\Repository\PersistenceRepositoryInterface;
 use Yii\User\ActiveRecord\Account;
-use Yii\User\Framework\Repository\PersistenceRepository;
 use yii\web\User;
 
 final class LoginService
 {
     public function __construct(
-        private readonly PersistenceRepository $persistenceRepository,
+        private readonly PersistenceRepositoryInterface $persistenceRepository,
         private readonly User $user
     ) {
     }

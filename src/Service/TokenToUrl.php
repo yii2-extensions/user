@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Yii\User\Service;
 
 use RuntimeException;
+use Yii\CoreLibrary\Repository\FinderRepositoryInterface;
+use Yii\CoreLibrary\Repository\PersistenceRepositoryInterface;
 use Yii\User\ActiveRecord\Account;
 use Yii\User\ActiveRecord\Token;
-use Yii\User\Framework\Repository\FinderRepository;
-use Yii\User\Framework\Repository\PersistenceRepository;
 use Yii\User\UserModule;
 use Yiisoft\Security\Random;
 
@@ -16,8 +16,8 @@ final class TokenToUrl
 {
     public function __construct(
         private readonly Account $account,
-        private readonly FinderRepository $finderRepository,
-        private readonly PersistenceRepository $persistenceRepository,
+        private readonly FinderRepositoryInterface $finderRepository,
+        private readonly PersistenceRepositoryInterface $persistenceRepository,
         private readonly Token $token,
         private readonly UserModule $userModule
     ) {
