@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use yii\db\Connection;
 
 $params = require_once dirname(__DIR__) . '/params-console.php';
 
