@@ -10,5 +10,7 @@ return [
             'class' => SiteController::class,
         ],
     ],
-    'icons' => '@npm/fortawesome--fontawesome-free/svgs/{family}/{name}.svg',
+    'app.params' => [
+        'icons' => '@npm/fortawesome--fontawesome-free/svgs/{family}/{name}.svg',
+    ],
 ];

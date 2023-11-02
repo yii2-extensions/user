@@ -56,7 +56,8 @@
         },
         "config-plugin": {
             "web": "web/*.php",
-            "params": "params.php"
+            "params": "params.php",
+            "params-console": "params-console.php"
         },
         "config-plugin-options": {
             "source-directory": "config"
@@ -69,6 +70,10 @@
                     "tests/web/*.php"
                 ],
                 "params": "params.php",
+                "params-console": [
+                    "$params",
+                    "tests/params-console.php"
+                ],
                 "params-web": [
                     "$params",
                     "tests/params-web.php"

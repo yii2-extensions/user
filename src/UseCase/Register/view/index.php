@@ -48,7 +48,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Email Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Email'),
-                                'required' => (YII_ENV === 'tests') ? false : true,
+                                'required' => !((YII_ENV === 'tests')),
                                 'tabindex' => '1',
                             ],
                         )
@@ -59,7 +59,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Username Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Username'),
-                                'required' => (YII_ENV === 'tests') ? false : true,
+                                'required' => !((YII_ENV === 'tests')),
                                 'tabindex' => '2',
                             ],
                         )
@@ -71,7 +71,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                     'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
-                                    'required' => (YII_ENV === 'tests') ? false : true,
+                                    'required' => !((YII_ENV === 'tests')),
                                     'tabindex' => '3',
                                 ]
                             )
@@ -82,7 +82,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                     'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
-                                    'required' => (YII_ENV === 'tests') ? false : true,
+                                    'required' => !((YII_ENV === 'tests')),
                                     'tabindex' => '4',
                                 ]
                             )
@@ -93,7 +93,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             [
                                 'class' => 'form-check-input',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'You must accept the terms and conditions.') . '")',
-                                'required' => (YII_ENV === 'tests') ? false : true,
+                                'required' => !((YII_ENV === 'tests')),
                                 'tabindex' => '5',
                                 'template' => "<div class=\"form-check form-switch\">\n{input}\n{label}\n{error}\n{hint}\n</div>",
                             ],

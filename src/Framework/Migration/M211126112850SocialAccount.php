@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Yii\User\Framework\Migration\BaseMigration;
+use Yii\User\Framework\Migration\Migration;
 
-final class M211126112850SocialAccount extends BaseMigration
+final class M211126112850SocialAccount extends Migration
 {
     public function up(): bool
     {

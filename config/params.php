@@ -23,29 +23,35 @@ return [
             'class' => RegisterController::class,
         ],
     ],
-    'app.events' => [
-        __DIR__ . '/events/AccountModel.php',
-    ],
-    'app.menu.isguest' => [
-        [
-            'label' => \Yii::t('yii.user', 'Register'),
-            'url' => ['/register/index'],
-            'order' => 1,
-        ],
-        [
-            'label' => \Yii::t('yii.user', 'Login'),
-            'url' => ['/login/index'],
-            'order' => 2,
-        ],
-    ],
-    'app.menu.islogged' => [
-        [
-            'label' => \Yii::t('yii.user', 'Logout'),
-            'url' => ['/logout/index'],
-            'order' => 1,
-            'linkOptions' => [
-                'data-method' => 'post',
+    'app.params' => [
+        'app.menu.isguest' => [
+            [
+                'label' => 'Register',
+                'url' => ['/register/index'],
+                'order' => 3,
+                'category' => 'yii.user',
+            ],
+            [
+                'label' => 'Login',
+                'url' => ['/login/index'],
+                'order' => 4,
+                'category' => 'yii.user',
             ],
         ],
+        'app.menu.islogged' => [
+            [
+                'label' => 'Logout',
+                'url' => ['/logout/index'],
+                'order' => 1,
+                'category' => 'yii.user',
+                'linkOptions' => [
+                    'data-method' => 'post',
+                ],
+            ],
+        ],
+    ],
+    'console.aliases' => [
+        '@yii-user' => '@vendor/yii2-extensions/user',
+        '@yii-user/migration' => '@yii-user/src/Framework/Migration',
     ],
 ];

@@ -44,7 +44,7 @@ $this->title = Yii::t('yii.user', 'Sign in');
                                 'autofocus' => true,
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Login Here') . '")',
-                                'required' => (YII_ENV === 'tests') ? false : true,
+                                'required' => !((YII_ENV === 'tests')),
                                 'tabindex' => '1',
                             ]
                     ) ?>
@@ -53,7 +53,7 @@ $this->title = Yii::t('yii.user', 'Sign in');
                             [
                                 'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here') . '")',
-                                'required' => (YII_ENV === 'tests') ? false : true,
+                                'required' => !((YII_ENV === 'tests')),
                                 'tabindex' => '2',
                             ],
                     ) ?>

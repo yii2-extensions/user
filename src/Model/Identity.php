@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yii\User\Model;
 
+use Exception;
 use yii\base\NotSupportedException;
 use yii\db\ActiveQueryInterface;
 use yii\db\ActiveRecord;
@@ -27,18 +28,24 @@ final class Identity extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @param int|string $id the user ID to be looked for (primary key) in the database.
+     * @param int|string $id the user ID to be looked for (a primary key) in the database.
      */
     public static function findIdentity($id): IdentityInterface|null
     {
         return self::findOne($id);
     }
 
-    public static function findIdentityByAccessToken(mixed $token, mixed $type = null)
+    /**
+     * @throws NotSupportedException
+     */
+    public static function findIdentityByAccessToken(mixed $token, mixed $type = null): void
     {
         throw new NotSupportedException('Method "' . __CLASS__ . '::findIdentityByAccessToken" is not implemented.');
     }
 
+    /**
+     * @throws Exception
+     */
     public function generateAuthKey(): void
     {
         $this->setAttribute('auth_key', Random::string());
