@@ -29,13 +29,13 @@ return [
                 'label' => 'Register',
                 'url' => ['/register/index'],
                 'order' => 3,
-                'category' =>'yii.user',
+                'category' => 'yii.user',
             ],
             [
                 'label' => 'Login',
                 'url' => ['/login/index'],
                 'order' => 4,
-                'category' =>'yii.user',
+                'category' => 'yii.user',
             ],
         ],
         'app.menu.islogged' => [
@@ -43,7 +43,7 @@ return [
                 'label' => 'Logout',
                 'url' => ['/logout/index'],
                 'order' => 1,
-                'category' =>'yii.user',
+                'category' => 'yii.user',
                 'linkOptions' => [
                     'data-method' => 'post',
                 ],
