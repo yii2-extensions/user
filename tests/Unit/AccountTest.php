@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Unit;
 
 use Codeception\Test\Unit;
-use Yii\User\Model\Account;
-use Yii\User\Model\Profile;
+use Yii\User\ActiveRecord\Account;
+use Yii\User\ActiveRecord\Profile;
 
 final class AccountTest extends Unit
 {

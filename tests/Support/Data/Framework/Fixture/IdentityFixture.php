@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Support\Data\Framework\Fixture;
 
 use yii\test\ActiveFixture;
-use Yii\User\Model\Identity;
+use Yii\User\ActiveRecord\Identity;
 
 final class IdentityFixture extends ActiveFixture
 {

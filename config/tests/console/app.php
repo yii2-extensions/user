@@ -13,12 +13,6 @@ return [
     ],
     'basePath' => dirname(__DIR__, 3),
     'bootstrap' => ['log'],
-    'components' => [
-        'db' => [
-            'class' => Connection::class,
-            'dsn' => 'sqlite:' . dirname(__DIR__) . '/yiitest.sq3',
-        ],
-    ],
     'id' => 'app-tests',
     'language' => 'en-US',
     'name' => 'Web application basic',

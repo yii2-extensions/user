@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Unit;
 
 use Codeception\Test\Unit;
+use Yii\User\ActiveRecord\Account;
 use Yii\User\Framework\Repository\PersistenceRepository;
-use Yii\User\Model\Account;
 
 final class PersistenceRepositoryTest extends Unit
 {

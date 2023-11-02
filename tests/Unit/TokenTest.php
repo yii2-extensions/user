@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Unit;
 
 use Codeception\Test\Unit;
-use Yii\User\Model\Identity;
-use Yii\User\Model\Token;
+use Yii\User\ActiveRecord\Identity;
+use Yii\User\ActiveRecord\Token;
 use Yii\User\UserModule;
 
 final class TokenTest extends Unit

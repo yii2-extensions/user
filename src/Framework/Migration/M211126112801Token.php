@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\ActiveRecord\Identity;
+use Yii\User\ActiveRecord\Token;
 use Yii\User\Framework\Migration\Migration;
 
 final class M211126112801Token extends Migration
@@ -17,7 +19,7 @@ final class M211126112801Token extends Migration
         }
 
         $this->createTable(
-            '{{%token}}',
+            Token::tableName(),
             [
                 'id' => $id,
                 'code' => $this->string(32)->notNull(),
@@ -32,9 +34,9 @@ final class M211126112801Token extends Migration
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
                 'fk_token_identity',
-                '{{%token}}',
+                Token::tableName(),
                 'id',
-                '{{%identity}}',
+                Identity::tableName(),
                 'id',
                 $this->cascade,
                 $this->restrict,
@@ -46,7 +48,7 @@ final class M211126112801Token extends Migration
 
     public function down(): bool
     {
-        $this->dropTable('{{%token}}');
+        $this->dropTable(Token::tableName());
 
         return true;
     }

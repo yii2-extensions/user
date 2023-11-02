@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Yii\User\UseCase\Login;
 
+use Yii\User\ActiveRecord\Account;
 use Yii\User\Framework\Repository\PersistenceRepository;
-use Yii\User\Model\Account;
 use yii\web\User;
 
 final class LoginService

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Yii\User\Framework\EventHandler\RegisterEventHandler;
 use yii\web\Session;
 
 /**
@@ -21,17 +20,7 @@ return [
         '@yii-user/migration' => '@app/src/Framework/Migration',
     ],
     'basePath' => dirname(__DIR__, 3),
-    'bootstrap' => [
-        RegisterEventHandler::class,
-        'log',
-    ],
-    'container' => [
-        'singletons' => [
-            Session::class => static function (): Session {
-                return new Session();
-            },
-        ],
-    ],
+    'bootstrap' => ['log'],
     'controllerMap' => $params['app.controllerMap'],
     'id' => 'app-tests',
     'language' => 'en-US',

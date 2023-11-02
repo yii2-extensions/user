@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\ActiveRecord\Identity;
+use Yii\User\ActiveRecord\Profile;
 use Yii\User\Framework\Migration\Migration;
 
 final class M211126113053Profile extends Migration
@@ -17,7 +19,7 @@ final class M211126113053Profile extends Migration
         }
 
         $this->createTable(
-            '{{%profile}}',
+            Profile::tableName(),
             [
                 'id' => $id,
                 'first_name' => $this->string(255)->defaultValue(''),
@@ -33,14 +35,14 @@ final class M211126113053Profile extends Migration
         if ($this->db->driverName !== 'sqlite') {
             $this->addPrimaryKey(
                 '{{%profile_pk}}',
-                '{{%profile}}',
+                Profile::tableName(),
                 'id',
             );
             $this->addForeignKey(
                 'fk_profile_identity',
-                '{{%profile}}',
+                Profile::tableName(),
                 'id',
-                '{{%identity}}',
+                Identity::tableName(),
                 'id',
                 $this->cascade,
                 $this->restrict,
@@ -52,7 +54,7 @@ final class M211126113053Profile extends Migration
 
     public function down(): bool
     {
-        $this->dropTable('{{%profile}}');
+        $this->dropTable(Profile::tableName());
 
         return true;
     }

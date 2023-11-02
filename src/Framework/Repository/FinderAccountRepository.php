@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yii\User\Framework\Repository;
 
 use yii\db\ActiveRecordInterface;
-use Yii\User\Model\Account;
+use Yii\User\ActiveRecord\Account;
 
 final class FinderAccountRepository
 {

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use yii\i18n\PhpMessageSource;
-use Yii\User\Model\Identity;
+use Yii\User\ActiveRecord\Identity;
 
 return [
     'components' => [

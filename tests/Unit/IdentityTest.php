@@ -6,8 +6,8 @@ namespace Yii\User\Tests\Unit;
 
 use Codeception\Test\Unit;
 use yii\base\NotSupportedException;
-use Yii\User\Model\Account;
-use Yii\User\Model\Identity;
+use Yii\User\ActiveRecord\Account;
+use Yii\User\ActiveRecord\Identity;
 
 final class IdentityTest extends Unit
 {
@@ -48,7 +48,7 @@ final class IdentityTest extends Unit
     {
         $this->expectException(NotSupportedException::class);
         $this->expectExceptionMessage(
-            'Method "Yii\User\Model\Identity::findIdentityByAccessToken" is not implemented.',
+            'Method "Yii\User\ActiveRecord\Identity::findIdentityByAccessToken" is not implemented.',
         );
 
         Identity::findIdentityByAccessToken('token');
