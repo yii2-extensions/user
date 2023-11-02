@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Yii\User\Framework\Repository;
 
+use Yii\CoreLibrary\Repository\FinderRepositoryInterface;
 use yii\db\ActiveRecordInterface;
 use Yii\User\ActiveRecord\Account;
 
 final class FinderAccountRepository
 {
-    public function __construct(private readonly Account $account, private readonly FinderRepository $finderRepository)
-    {
+    public function __construct(
+        private readonly Account $account,
+        private readonly FinderRepositoryInterface $finderRepository
+    ) {
     }
 
     public function findByEmail(string $email): ActiveRecordInterface|array|null

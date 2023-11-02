@@ -18,6 +18,7 @@
         "php-forge/helpers": "dev-main",
         "sjaakp/yii2-icon": "^1.0",
         "yii2-extensions/authclient": "dev-main",
+        "yii2-extensions/core-library": "dev-main",
         "yii2-extensions/httpclient": "dev-main",
         "yiisoft/security": "^1.0",
         "yiisoft/yii2": "^2.2",
@@ -71,6 +72,7 @@
                 ],
                 "web": [
                     "$common",
+                    "$yii2-core-library",
                     "web/*.php",
                     "tests/web/*.php"
                 ],
