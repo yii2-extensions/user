@@ -6,8 +6,8 @@ namespace Yii\User\Tests\Unit;
 
 use Codeception\Test\Unit;
 use yii\db\ActiveRecordInterface;
+use Yii\User\ActiveRecord\Identity;
 use Yii\User\Framework\Repository\FinderRepository;
-use Yii\User\Model\Identity;
 
 final class FinderRepositoryTest extends Unit
 {

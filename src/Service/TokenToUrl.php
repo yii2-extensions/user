@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Yii\User\Service;
 
 use RuntimeException;
+use Yii\User\ActiveRecord\Account;
+use Yii\User\ActiveRecord\Token;
 use Yii\User\Framework\Repository\FinderRepository;
 use Yii\User\Framework\Repository\PersistenceRepository;
-use Yii\User\Model\Account;
-use Yii\User\Model\Token;
 use Yii\User\UserModule;
 use Yiisoft\Security\Random;
 

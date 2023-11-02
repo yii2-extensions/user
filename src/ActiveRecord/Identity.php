@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Model;
+namespace Yii\User\ActiveRecord;
 
 use Exception;
 use yii\base\NotSupportedException;

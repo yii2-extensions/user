@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\ActiveRecord\Account;
+use Yii\User\ActiveRecord\Identity;
 use Yii\User\Framework\Migration\Migration;
 
 final class M211126112600Account extends Migration
@@ -17,7 +19,7 @@ final class M211126112600Account extends Migration
         }
 
         $this->createTable(
-            '{{%account}}',
+            Account::tableName(),
             [
                 'id' => $id,
                 'username' => $this->string(255)->defaultValue('')->notNull(),
@@ -38,15 +40,15 @@ final class M211126112600Account extends Migration
             $this->tableOptions,
         );
 
-        $this->createIndex('account_unique_email', '{{%account}}', ['email']);
-        $this->createIndex('account_unique_username', '{{%account}}', ['username']);
+        $this->createIndex('account_unique_email', Account::tableName(), ['email']);
+        $this->createIndex('account_unique_username', Account::tableName(), ['username']);
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
                 'fk_account_identity',
-                '{{%account}}',
+                Account::tableName(),
                 'id',
-                '{{%identity}}',
+                Identity::tableName(),
                 'id',
                 $this->cascade,
                 $this->restrict,
@@ -58,7 +60,7 @@ final class M211126112600Account extends Migration
 
     public function down(): bool
     {
-        $this->dropTable('{{%account}}');
+        $this->dropTable(Account::tableName());
 
         return true;
     }

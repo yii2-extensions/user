@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Acceptance;
 
 use Yii;
-use Yii\User\Model\Account;
+use Yii\User\ActiveRecord\Account;
 use Yii\User\Tests\Support\AcceptanceTester;
 use Yii\User\Tests\Support\Data\Framework\Fixture\AccountFixture;
 

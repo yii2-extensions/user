@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use yii\symfonymailer\Mailer;
+use Yii\User\ActiveRecord\Identity;
 use Yii\User\Framework\Repository\PersistenceRepository;
 use Yii\User\Framework\Repository\PersistenceRepositoryInterface;
-use Yii\User\Model\Identity;
 use yii\web\User;
 
 return [

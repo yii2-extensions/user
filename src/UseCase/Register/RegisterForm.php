@@ -6,7 +6,7 @@ namespace Yii\User\UseCase\Register;
 
 use Yii;
 use yii\base\Model;
-use Yii\User\Model\Account;
+use Yii\User\ActiveRecord\Account;
 use Yii\User\UserModule;
 
 final class RegisterForm extends Model

@@ -18,7 +18,8 @@ require "$rootDir/vendor/yiisoft/yii2/Yii.php";
 $config = new Config(
     new ConfigPaths($rootDir, 'config', 'vendor'),
     'tests',
-    [RecursiveMerge::groups('console')],
+    [RecursiveMerge::groups('console', 'params-console')],
+    'params-console'
 );
 
 $application = new yii\console\Application($config->get('console'));

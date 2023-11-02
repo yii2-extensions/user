@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Support\Data\Framework\Fixture;
 
 use yii\test\ActiveFixture;
-use Yii\User\Model\Account;
+use Yii\User\ActiveRecord\Account;
 
 final class AccountFixture extends ActiveFixture
 {

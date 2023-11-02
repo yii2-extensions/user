@@ -6,8 +6,8 @@ namespace Yii\User\UseCase\Login;
 
 use yii\base\Module;
 use yii\filters\AccessControl;
+use Yii\User\ActiveRecord\Account;
 use Yii\User\Framework\Repository\FinderAccountRepository;
-use Yii\User\Model\Account;
 use Yii\User\UseCase\Controller;
 use Yii\User\UserModule;
 use yii\web\Request;

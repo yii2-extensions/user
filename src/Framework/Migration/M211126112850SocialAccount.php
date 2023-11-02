@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Yii\User\ActiveRecord\Identity;
+use Yii\User\ActiveRecord\SocialAccount;
 use Yii\User\Framework\Migration\Migration;
 
 final class M211126112850SocialAccount extends Migration
@@ -17,7 +19,7 @@ final class M211126112850SocialAccount extends Migration
         }
 
         $this->createTable(
-            '{{%social_account}}',
+            SocialAccount::tableName(),
             [
                 'id' => $id,
                 'provider' => $this->string(255)->defaultValue(''),
@@ -33,22 +35,22 @@ final class M211126112850SocialAccount extends Migration
 
         $this->createIndex(
             'idx_social_account_client_id',
-            '{{%social_account}}',
+            SocialAccount::tableName(),
             ['provider', 'client_id'],
         );
 
         $this->createIndex(
             'idx_social_account_code',
-            '{{%social_account}}',
+            SocialAccount::tableName(),
             'code',
         );
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
                 'fk_social_account_identity',
-                '{{%social_account}}',
+                SocialAccount::tableName(),
                 'id',
-                '{{%identity}}',
+                Identity::tableName(),
                 'id',
                 $this->cascade,
                 $this->restrict,
@@ -60,7 +62,7 @@ final class M211126112850SocialAccount extends Migration
 
     public function down(): bool
     {
-        $this->dropTable('{{%social_account}}');
+        $this->dropTable(SocialAccount::tableName());
 
         return true;
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Model;
+namespace Yii\User\ActiveRecord;
 
 use yii\db\ActiveQueryInterface;
 use yii\db\ActiveRecord;

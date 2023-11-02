@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-use yii\db\Connection;
-
-$params = require_once dirname(__DIR__) . '/params-console.php';
-
+/**
+ * @var array $params
+ */
 return [
     'aliases' => [
         '@yii-user' => dirname(__DIR__, 3),
@@ -13,12 +12,6 @@ return [
     ],
     'basePath' => dirname(__DIR__, 3),
     'bootstrap' => ['log'],
-    'components' => [
-        'db' => [
-            'class' => Connection::class,
-            'dsn' => 'sqlite:' . dirname(__DIR__) . '/yiitest.sq3',
-        ],
-    ],
     'id' => 'app-tests',
     'language' => 'en-US',
     'name' => 'Web application basic',
