@@ -33,17 +33,8 @@ final class M211126112850SocialAccount extends Migration
             $this->tableOptions,
         );
 
-        $this->createIndex(
-            'idx_social_account_client_id',
-            SocialAccount::tableName(),
-            ['provider', 'client_id'],
-        );
-
-        $this->createIndex(
-            'idx_social_account_code',
-            SocialAccount::tableName(),
-            'code',
-        );
+        $this->createIndex('idx_social_account_client_id', SocialAccount::tableName(), ['provider', 'client_id']);
+        $this->createIndex('idx_social_account_code', SocialAccount::tableName(), 'code');
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(

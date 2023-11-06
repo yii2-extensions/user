@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use PHPForge\Html\Img;
 use yii\base\View;
-use yii\bootstrap5\Html;
 use yii\mail\MessageInterface;
 
 /**
@@ -23,7 +23,7 @@ use yii\mail\MessageInterface;
         <body>
             <?= $content ?>
             <div>
-                <?= Html::img($message->embed($this->params['logo']), ['alt' => 'Mailer logo', 'width' => '40px']) ?>
+                <?= Img::widget()->alt('Mailer logo')->src($message->embed($this->params['logo']))->width('40px') ?>
                 <br/>
                 <strong>
                     <?= $this->params['signatureText'] ?>

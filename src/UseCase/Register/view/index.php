@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+use PHPForge\Html\A;
+use PHPForge\Html\Button;
+use PHPForge\Html\Div;
+use PHPForge\Html\H;
+use PHPForge\Html\P;
+use PHPForge\Html\Helper\Encode;
+use PHPForge\Html\Span;
+use PHPForge\Html\Tag;
 use sjaakp\icon\Icon;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UserModule;
 use yii\web\View;
@@ -16,39 +25,31 @@ use yii\web\View;
  **/
 $this->title = Yii::t('yii.user', 'Sign up');
 ?>
-<?= Html::beginTag('div', ['class' => 'container mt-3']) ?>
-    <?= Html::beginTag('div', ['class' => 'row align-items-center justify-content-center']) ?>
-        <?= Html::beginTag('div', ['class' => 'col-md-5 col-sm-12']) ?>
-            <?= Html::beginTag(
-                'div',
-                ['class' => 'bg-body-tertiary shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500'],
-            ) ?>
-                <?= Html::tag('h1', '<b>' . Html::encode($this->title) . '</b>', ['class' => 'form-registration-register-title']) ?>
-                <?= Html::beginTag('p', ['class' => 'form-registration-register-subtitle']) ?>
-                    <?= Yii::t(
-                        'yii.user',
-                        'Please fill out the following fields to Sign up.'
-                    ) ?>
-                <?= Html::endTag('p') ?>
-                <?= Html::tag('hr', '', ['class' => 'mb-3']) ?>
+<?= Div::widget()->class('container mt-3')->begin() ?>
+    <?= Div::widget()->class('row align-items-center justify-content-center')->begin() ?>
+        <?= Div::widget()->class('col-md-5 col-sm-12')->begin() ?>
+            <?=
+                Div::widget()
+                    ->class('bg-body-tertiary shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500')
+                    ->begin()
+            ?>
+                <?= H::widget()->content(Encode::content($this->title))->class('fw-bold')->tagName('h1') ?>
+                <?= P::widget()->content(Yii::t('yii.user', 'Please fill out the following fields to Sign up.')) ?>
+                <?= Tag::widget()->class('mb-3')->tagName('hr') ?>
                 <?php $form = ActiveForm::begin(
                     [
                         'id' => 'register-form',
                         'layout' => $userModule->floatLabels ? ActiveForm::LAYOUT_FLOATING : ActiveForm::LAYOUT_DEFAULT,
                         'enableAjaxValidation' => true,
-                        'enableClientValidation' => false,
-                        'validateOnType' => false,
-                        'validateOnChange' => false,
                     ],
                 ) ?>
                     <?= $form->field($formModel, 'email')
                         ->textInput(
                             [
                                 'autofocus' => true,
-                                'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Email Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Email'),
-                                'required' => !((YII_ENV === 'tests')),
+                                'required' => true,
                                 'tabindex' => '1',
                             ],
                         )
@@ -56,10 +57,9 @@ $this->title = Yii::t('yii.user', 'Sign up');
                     <?= $form->field($formModel, 'username')
                         ->textInput(
                             [
-                                'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Username Here.') . '")',
                                 'placeholder' => Yii::t('yii.user', 'Username'),
-                                'required' => !((YII_ENV === 'tests')),
+                                'required' => true,
                                 'tabindex' => '2',
                             ],
                         )
@@ -68,7 +68,6 @@ $this->title = Yii::t('yii.user', 'Sign up');
                         <?= $form->field($formModel, 'password')
                             ->passwordInput(
                                 [
-                                    'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
                                     'required' => !((YII_ENV === 'tests')),
@@ -79,10 +78,9 @@ $this->title = Yii::t('yii.user', 'Sign up');
                         <?= $form->field($formModel, 'passwordRepeat')
                             ->passwordInput(
                                 [
-                                    'oninput' => 'this.setCustomValidity("")',
                                     'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here.') . '")',
                                     'placeholder' => Yii::t('yii.user', 'Password'),
-                                    'required' => !((YII_ENV === 'tests')),
+                                    'required' => true,
                                     'tabindex' => '4',
                                 ]
                             )
@@ -93,47 +91,62 @@ $this->title = Yii::t('yii.user', 'Sign up');
                             [
                                 'class' => 'form-check-input',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'You must accept the terms and conditions.') . '")',
-                                'required' => !((YII_ENV === 'tests')),
+                                'required' => true,
                                 'tabindex' => '5',
                                 'template' => "<div class=\"form-check form-switch\">\n{input}\n{label}\n{error}\n{hint}\n</div>",
                             ],
                         )
                     ?>
-                    <?= Html::beginTag('div', ['class' => 'd-grid gap-2']) ?>
-                        <?= Html::submitButton(
-                            Yii::t('yii.user', 'Sign up'),
-                            [
-                                'class' => 'btn-block btn btn-lg btn-primary mt-3',
-                                'id' => 'register-button',
-                                'tabindex' => '5'
-                            ],
-                        ) ?>
-                    <?= Html::endTag('div') ?>
+                    <?=
+                        Div::widget()
+                            ->class('d-grid gap-2')
+                            ->content(
+                                Button::widget()
+                                    ->class('btn btn-lg btn-primary btn-block mt-3')
+                                    ->content(Yii::t('yii.user', 'Sign up'))
+                                    ->name('register-button')
+                                    ->submit()
+                                    ->tabIndex(6)
+                        )
+                    ?>
                 <?php ActiveForm::end() ?>
-                <?= Html::tag('hr', '', ['class' => 'mb-2']) ?>
-                <?= Html::beginTag('p', ['class' => 'mt-3 text-center']) ?>
-                    <?= Html::a(Yii::t('yii.user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
-                <?= Html::endTag('p') ?>
-                <div class="d-flex flex-column align-items-center justify-content-center my-4">
-                    <?= Html::beginTag('p', ['class' => 'mt-3 text-center']) ?>
-                        <?= Html::tag('span', '<strong>' . Yii::t('yii.user', 'Or login with:') . '</strong>') ?>
-                    <?= Html::endTag('p') ?>
-                    <?= Html::beginTag(
-                        'a',
-                        [
-                            'aria-label' => 'github-button',
-                            'class' => 'btn btn-icon-only btn-pill btn-outline-gray-500',
-                            'href' => '#',
-                            'title' => 'Github register',
-                        ]
-                    ) ?>
-                        <?= Html::beginTag('span', ['class' => 'fa-stack fa-2x']) ?>
-                            <?= Icon::renderIcon('solid', 'square-full', ['class' => 'fas fa-stack-2x']) ?>
-                            <?= Icon::renderIcon('brands', 'github', ['class' => 'fab fa-stack-1x fa-inverse text-center']) ?>
-                        <?= Html::endTag('span') ?>
-                    <?= Html::endTag('a') ?>
-                <?= Html::endTag('div') ?>
-            <?= Html::endTag('div') ?>
-        <?= Html::endTag('div') ?>
-    <?= Html::endTag('div') ?>
-<?= Html::endTag('div');
+                <?= Tag::widget()->class('mb-3')->tagName('hr') ?>
+                <?=
+                    P::widget()
+                        ->class('mt-3 text-center')
+                        ->content(
+                            A::widget()
+                                ->content(Yii::t('yii.user', 'Already registered? Sign in!'))
+                                ->href(Url::to(['/login/index']))
+                        )
+                ?>
+                <?=
+                    Div::widget()
+                        ->class('d-flex flex-column align-items-center justify-content-center my-4')
+                        ->content(
+                            P::widget()
+                                ->class('mt-3 text-center')
+                                ->content(
+                                    Span::widget()
+                                        ->class('fw-bold')
+                                        ->content(Yii::t('yii.user', 'Or login with:'))
+                                ),
+                            A::widget()
+                                ->attributes(['aria-label' => 'github-button'])
+                                ->class('btn btn-icon-only btn-pill btn-outline-gray-500')
+                                ->content(
+                                    Span::widget()
+                                        ->class('fa-stack fa-2x')
+                                        ->content(
+                                            Icon::renderIcon('solid', 'square-full', ['class' => 'fas fa-stack-2x']),
+                                            Icon::renderIcon('brands', 'github', ['class' => 'fab fa-stack-1x fa-inverse text-center'])
+                                        )
+                                )
+                                ->href('#')
+                                ->title('Github register'),
+                        )
+                ?>
+            <?= Div::end() ?>
+        <?= Div::end() ?>
+    <?= Div::end() ?>
+<?= Div::end();

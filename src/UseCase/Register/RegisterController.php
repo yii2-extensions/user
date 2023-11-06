@@ -17,8 +17,6 @@ use yii\web\Response;
 
 final class RegisterController extends Controller
 {
-    use AjaxValidator;
-
     /**
      * @phpstan-var class-string<RegisterForm>
      */
@@ -29,6 +27,7 @@ final class RegisterController extends Controller
     public function __construct(
         $id,
         Module $module,
+        private readonly AjaxValidator $ajaxValidator,
         private readonly Mailer $mailer,
         private readonly RegisterMailer $registerMailer,
         private readonly RegisterService $registerService,
@@ -61,7 +60,7 @@ final class RegisterController extends Controller
         $event = new RegisterEvent($registerForm, $this->userModule);
 
         $this->trigger(RegisterEvent::BEFORE_REGISTER, $event);
-        $this->performAjaxValidation($registerForm);
+        $this->ajaxValidator->validate($registerForm);
 
         if (
             $this->request instanceof Request &&

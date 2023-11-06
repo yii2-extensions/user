@@ -70,7 +70,7 @@ final class RegisterMailerTest extends Unit
         verify($emailMessage->toString())->stringContainsString('Your account on Web application basic has been created.');
         verify(
             $emailMessage->toString()
-        )->stringContainsString('In order to complete your registration, please click the link below.');
+        )->stringContainsString('In order to complete your registration, please click the link');
         verify(
             $emailMessage->toString()
         )->stringContainsString('http://localhost/user/confirm?id=');
