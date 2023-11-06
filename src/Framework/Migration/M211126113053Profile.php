@@ -33,11 +33,7 @@ final class M211126113053Profile extends Migration
         );
 
         if ($this->db->driverName !== 'sqlite') {
-            $this->addPrimaryKey(
-                '{{%profile_pk}}',
-                Profile::tableName(),
-                'id',
-            );
+            $this->addPrimaryKey('{{%profile_pk}}', Profile::tableName(), 'id');
             $this->addForeignKey(
                 'fk_profile_identity',
                 Profile::tableName(),

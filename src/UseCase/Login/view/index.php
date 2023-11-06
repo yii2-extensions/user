@@ -2,8 +2,15 @@
 
 declare(strict_types=1);
 
+use PHPForge\Html\Button;
+use PHPForge\Html\A;
+use PHPForge\Html\P;
+use PHPForge\Html\Div;
+use PHPForge\Html\H;
+use PHPForge\Html\Helper\Encode;
+use PHPForge\Html\Tag;
 use yii\bootstrap5\ActiveForm;
-use yii\helpers\Html;
+use yii\helpers\Url;
 use Yii\User\UseCase\Login\LoginForm;
 use Yii\User\UserModule;
 use yii\web\View;
@@ -16,44 +23,38 @@ use yii\web\View;
 $this->title = Yii::t('yii.user', 'Sign in');
 ?>
 
-<?= Html::beginTag('div', ['class' => 'container mt-3']) ?>
-    <?= Html::beginTag('div', ['class' => 'row align-items-center justify-content-center']) ?>
-        <?= Html::beginTag('div', ['class' => 'col-md-5 col-sm-12']) ?>
-            <?= Html::beginTag(
-                'div',
-                ['class' => 'bg-body-tertiary shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500'],
-            ) ?>
-                <?= Html::tag('h1', '<b>' . Html::encode($this->title) . '</b>', ['class' => 'form-security-login-title']) ?>
-                <?= Html::beginTag('p', ['class' => 'form-security-login-subtitle']) ?>
-                    <?= Yii::t('yii.user', 'Please fill out the following fields to Sign in.') ?>
-                <?= Html::endTag('p') ?>
-                <?= Html::tag('hr', '', ['class' => 'mb-2']) ?>
+<?= Div::widget()->class('container mt-3')->begin() ?>
+    <?= Div::widget()->class('row align-items-center justify-content-center')->begin() ?>
+        <?= Div::widget()->class('col-md-5 col-sm-12')->begin() ?>
+            <?=
+                Div::widget()
+                    ->class('bg-body-tertiary shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500')
+                    ->begin()
+            ?>
+                <?= H::widget()->content(Encode::content($this->title))->class('fw-bold')->tagName('h1') ?>
+                <?= P::widget()->content(Yii::t('yii.user', 'Please fill out the following fields to Sign in.')) ?>
+                <?= Tag::widget()->class('mb-2')->tagName('hr') ?>
                 <?php $form = ActiveForm::begin(
                     [
                         'id' => 'login-form',
                         'layout' => $userModule->floatLabels ? ActiveForm::LAYOUT_FLOATING : ActiveForm::LAYOUT_DEFAULT,
                         'enableAjaxValidation' => true,
-                        'enableClientValidation' => false,
-                        'validateOnType' => false,
-                        'validateOnChange' => false,
                     ],
                 ) ?>
                     <?= $form->field($formModel, 'login')
                         ->textInput(
                             [
                                 'autofocus' => true,
-                                'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Login Here') . '")',
-                                'required' => !((YII_ENV === 'tests')),
+                                'required' => true,
                                 'tabindex' => '1',
                             ]
                     ) ?>
                     <?= $form->field($formModel, 'password')
                         ->passwordInput(
                             [
-                                'oninput' => 'this.setCustomValidity("")',
                                 'oninvalid' => 'this.setCustomValidity("' . Yii::t('yii.user', 'Enter Password Here') . '")',
-                                'required' => !((YII_ENV === 'tests')),
+                                'required' => true,
                                 'tabindex' => '2',
                             ],
                     ) ?>
@@ -67,48 +68,59 @@ $this->title = Yii::t('yii.user', 'Sign in');
                             ],
                         )
                     ?>
-                    <?= Html::beginTag('div', ['class' => 'form-security-recovery-password']) ?>
-                        <?php if ($userModule->passwordRecovery) : ?>
-                            <?= Yii::t(
-                                'yii.user',
-                                'If you forgot your password you can'
-                            ) . ' ' .
-                            Html::a(
-                                Yii::t('yii.user', 'reset it here'),
-                                ['/user/recovery/request']
-                            ) ?>
-                        <?php endif ?>
-                    <?= Html::endTag('div') ?>
-                    <?= Html::beginTag('div', ['class' => 'd-grid gap-2']) ?>
-                        <?= Html::submitButton(
-                            Yii::t('yii.user', 'Sign in'),
-                            [
-                                'class' => 'btn-block btn btn-lg btn-primary mt-3',
-                                'id' => 'register-button',
-                                'tabindex' => '4'
-                            ],
-                        ) ?>
-                    <?= Html::endTag('div') ?>
+                    <?php if ($userModule->passwordRecovery) : ?>
+                        <?=
+                            Div::widget()
+                                ->class('mt-3')
+                                ->content(
+                                    Yii::t('yii.user', 'If you forgot your password you can '),
+                                    A::widget()
+                                        ->content(Yii::t('yii.user', 'reset it'))
+                                        ->href(Url::to(['/user/recovery/request']))
+                                        ->tabIndex(4)
+                                )
+                        ?>
+                    <?php endif ?>
+                    <?=
+                        Div::widget()
+                            ->class('d-grid gap-2')
+                            ->content(
+                                Button::widget()
+                                    ->class('btn btn-lg btn-primary btn-block mt-3')
+                                    ->content(Yii::t('yii.user', 'Sign in'),)
+                                    ->name('login-button')
+                                    ->submit()
+                                    ->tabIndex(5)
+                        )
+                    ?>
                 <?php ActiveForm::end() ?>
-                <?= Html::tag('hr', '', ['class' => 'mb-2']) ?>
+                <?= Tag::widget()->class('mb-2')->tagName('hr') ?>
                 <?php if ($userModule->confirmation) : ?>
-                    <?= Html::beginTag('p', ['class' => 'mt-3 text-center']) ?>
-                        <?= Html::a(
-                            Yii::t(
-                                'yii.user',
-                                'Didn\'t receive confirmation message?'
-                            ),
-                            ['/user/registration/resend']
-                         ) ?>
-                    <?= Html::endTag('p') ?>
+                    <?=
+                        P::widget()
+                            ->class('mt-3 text-center')
+                            ->content(
+                                A::widget()
+                                    ->content(Yii::t('yii.user', 'Didn\'t receive confirmation message?'))
+                                    ->href(Url::to(['/resend/index']))
+                                    ->tabIndex(6)
+                            )
+                    ?>
                 <?php endif ?>
                 <?php if ($userModule->register) : ?>
-                    <?= Html::beginTag('p', ['class' => 'mt-3 text-center']) ?>
-                        <?= Html::a(Yii::t('yii.user', 'Don\'t have an account? Sign up!'), ['/user/registration/register']) ?>
-                    <?= Html::endTag('p') ?>
+                    <?=
+                        P::widget()
+                            ->class('mt-3 text-center')
+                            ->content(
+                                A::widget()
+                                    ->content(Yii::t('yii.user', 'Don\'t have an account? Sign up!'))
+                                    ->href(Url::to(['/register/index']))
+                                    ->tabIndex(7)
+                            )
+                    ?>
                 <?php endif ?>
-            <?= Html::endTag('div') ?>
-        <?= Html::endTag('div') ?>
-    <?= Html::endTag('div') ?>
-<?= Html::endTag('div');
+            <?= Div::end() ?>
+        <?= Div::end() ?>
+    <?= Div::end() ?>
+<?= Div::end();
 

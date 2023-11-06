@@ -18,8 +18,6 @@ use Yiisoft\Security\PasswordHasher;
 
 final class LoginController extends Controller
 {
-    use AjaxValidator;
-
     /**
      * @phpstan-var class-string<LoginForm>
      */
@@ -30,6 +28,7 @@ final class LoginController extends Controller
     public function __construct(
         $id,
         Module $module,
+        private readonly AjaxValidator $ajaxValidator,
         private readonly FinderAccountRepository $finderAccountRepository,
         private readonly PasswordHasher $passwordHasher,
         private readonly User $user,
@@ -79,7 +78,7 @@ final class LoginController extends Controller
         $event = new LoginEvent($loginForm, $this->userModule);
 
         $this->trigger(LoginEvent::BEFORE_LOGIN, $event);
-        $this->performAjaxValidation($loginForm);
+        $this->ajaxValidator->validate($loginForm);
 
         if (
             $this->request instanceof Request &&

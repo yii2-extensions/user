@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use yii\bootstrap5\Html;
+use PHPForge\Html\A;
+use PHPForge\Html\P;
+use PHPForge\Html\Helper\Encode;
 
 /**
  * @var bool $showPassword
@@ -11,29 +13,18 @@ use yii\bootstrap5\Html;
  * @var string|null $url
  */
 ?>
-<p>
-    <?= Yii::t('yii.user', 'Hello') ?>,
-</p>
-
-<p>
+<?= P::widget()->content(Yii::t('yii.user', 'Hello')) ?>
+<?= P::widget()->begin() ?>
     <?= Yii::t('yii.user', 'Your account on {0} has been created.', [Yii::$app->name]) ?>
-
     <?php if ($showPassword): ?>
         <br/>
         <br/>
         <?= Yii::t('yii.user', 'We have generated a password for you') ?>: <strong><?= $password ?></strong>
     <?php endif ?>
-</p>
-
+<?= P::end() ?>
 <?php if ($url !== null): ?>
-    <p>
-        <?= Yii::t('yii.user', 'In order to complete your registration, please click the link below.') ?>
-    </p>
-    <p>
-        <?= Html::a(Html::encode($url), $url); ?>
-    </p>
-    <p>
-        <?= Yii::t('yii.user', 'If you cannot click the link, please try pasting the text into your browser.') ?>
-    </p>
+    <?= P::widget()->content(Yii::t('yii.user', 'In order to complete your registration, please click the link below')) ?>
+    <?= P::widget()->content(A::widget()->content(Encode::content($url))->href($url)) ?>
+    <?= P::widget()->content(Yii::t('yii.user', 'If you cannot click the link, please try pasting the text into your browser.')) ?>
 <?php endif ?>
 <br/>

@@ -29,7 +29,7 @@ final class M211126112801Token extends Migration
             $this->tableOptions,
         );
 
-        $this->createIndex('token_unique', '{{%token}}', ['id', 'code', 'type'], true);
+        $this->createIndex('idx_token_id_code_type', '{{%token}}', ['id', 'code', 'type'], true);
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(

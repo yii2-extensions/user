@@ -40,8 +40,8 @@ final class M211126112600Account extends Migration
             $this->tableOptions,
         );
 
-        $this->createIndex('account_unique_email', Account::tableName(), ['email']);
-        $this->createIndex('account_unique_username', Account::tableName(), ['username']);
+        $this->createIndex('idx_account_email', Account::tableName(), ['email']);
+        $this->createIndex('idx_account_username', Account::tableName(), ['username']);
 
         if ($this->db->driverName !== 'sqlite') {
             $this->addForeignKey(
