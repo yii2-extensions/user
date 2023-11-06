@@ -23,15 +23,8 @@ use PHPForge\Html\Helper\Encode;
     <?php endif ?>
 <?= P::end() ?>
 <?php if ($url !== null): ?>
-    <?=
-        P::widget()
-            ->content(
-                Yii::t('yii.user', 'In order to complete your registration, please click the link below.'),
-                PHP_EOL,
-                A::widget()->content(Encode::content($url))->href($url),
-                PHP_EOL,
-                Yii::t('yii.user', 'If you cannot click the link, please try pasting the text into your browser.')
-            )
-    ?>
+    <?= P::widget()->content(Yii::t('yii.user', 'In order to complete your registration, please click the link below')) ?>
+    <?= P::widget()->content(A::widget()->content(Encode::content($url))->href($url)) ?>
+    <?= P::widget()->content(Yii::t('yii.user', 'If you cannot click the link, please try pasting the text into your browser.')) ?>
 <?php endif ?>
 <br/>
