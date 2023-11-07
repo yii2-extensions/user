@@ -11,9 +11,9 @@ return [
         '@app' => dirname(__DIR__, 3),
         '@bower' => '@app/node_modules',
         '@npm' => '@app/node_modules',
-        '@resource' => '@app/tests/Support/Data/Framework/resource',
-        '@runtime' => '@app/tests/Support/Data/public/runtime',
-        '@web' => '@app/tests/Support/Data/public',
+        '@resource' => '@vendor/yii2-extensions/app-basic/src/Framework/resource',
+        '@runtime' => '@app/tests/public/runtime',
+        '@web' => '@app/tests/public',
         '@webroot/assets' => '@web/assets',
         '@yii-user/mailer' => '@app/src/Framework/resource/mailer',
         '@yii-user/migration' => '@app/src/Framework/Migration',
@@ -28,5 +28,5 @@ return [
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     },
     'params' => $params['app.params'] ?? [],
-    'runtimePath' => dirname(__DIR__, 3) . '/tests/Support/Data/public/runtime',
+    'runtimePath' => dirname(__DIR__, 3) . '/tests/public/runtime',
 ];

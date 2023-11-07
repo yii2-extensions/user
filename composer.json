@@ -13,6 +13,7 @@
     "require": {
         "php": ">=8.1",
         "ext-filter": "*",
+        "bower-asset/bootstrap": "^5.3",
         "npm-asset/fortawesome--fontawesome-free": "^6.4",
         "oomphinc/composer-installers-extender": "^2.0",
         "php-forge/helpers": "dev-main",
@@ -36,9 +37,11 @@
         "codeception/module-yii2": "^1.1",
         "codeception/stub": "^4.1",
         "codeception/verify": "^3.0",
+        "php-forge/support": "dev-main",
         "maglnet/composer-require-checker": "^4.6",
         "symfony/browser-kit": "^6.3",
         "symfony/process": "^6.3",
+        "yii2-extensions/app-basic": "dev-main",
         "yii2-extensions/phpstan": "dev-main",
         "yiisoft/config": "^1.3"
     },
