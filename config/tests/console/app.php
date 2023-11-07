@@ -16,5 +16,5 @@ return [
     'language' => 'en-US',
     'name' => 'Web application basic',
     'params' => $params,
-    'runtimePath' => dirname(__DIR__, 3) . '/tests/Support/Data/public/runtime',
+    'runtimePath' => dirname(__DIR__, 3) . '/tests/public/runtime',
 ];
