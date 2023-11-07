@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Yii\User\Tests\Unit;
 
-use Codeception\Test\Unit;
 use Yii\User\ActiveRecord\Identity;
 use Yii\User\ActiveRecord\Token;
+use Yii\User\Tests\Support\UnitTester;
 use Yii\User\UserModule;
 
-final class TokenTest extends Unit
+final class TokenCest
 {
-    public function testGetIdentity(): void
+    public function testGetIdentity(UnitTester $I): void
     {
         $identity = new Identity();
         $identity->id = 1;
@@ -25,6 +25,6 @@ final class TokenTest extends Unit
         $token->created_at = time();
         $token->update();
 
-        $this->assertSame(1, $token->identity->id);
+        $I->assertSame(1, $token->identity->id);
     }
 }

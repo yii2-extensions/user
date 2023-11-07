@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Yii\User\Tests\Support\Data\UseCase\Site\SiteController;
+use App\UseCase\Site\SiteController;
 
 return [
     'app.controllerMap' => [

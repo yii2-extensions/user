@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use yii\web\Application;
 use Yiisoft\Config\Config;
 use Yiisoft\Config\ConfigPaths;
 use Yiisoft\Config\Modifier\RecursiveMerge;
@@ -14,7 +15,7 @@ if (!in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1'])) {
     die('You are not allowed to access this file.');
 }
 
-$rootDir = dirname(__DIR__, 4);
+$rootDir = dirname(__DIR__, 2);
 
 require "$rootDir/c3.php";
 require "$rootDir/vendor/autoload.php";
@@ -27,4 +28,6 @@ $config = new Config(
     'params-web',
 );
 
-(new yii\web\Application($config->get('web')))->run();
+$container = Yii::$container->setSingleton(Application::class, $config->get('web'));
+$app = Yii::$container->get(Application::class);
+$app->run();

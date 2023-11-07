@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Yii\User\Tests\Unit;
 
-use Codeception\Test\Unit;
 use Yii\User\ActiveRecord\Account;
 use Yii\User\ActiveRecord\Profile;
+use Yii\User\Tests\Support\UnitTester;
 
-final class AccountTest extends Unit
+final class AccountCest
 {
-    public function testGetProfile(): void
+    public function getProfile(UnitTester $I): void
     {
         $account = new Account();
         $account->username = 'test';
@@ -24,6 +24,6 @@ final class AccountTest extends Unit
         $profile->last_name = 'Doe';
         $profile->save();
 
-        $this->assertSame('John', $account->profile->first_name);
+        $I->assertSame('John', $account->profile->first_name);
     }
 }

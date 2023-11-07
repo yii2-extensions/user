@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yii\User\Tests\Unit;
 
 use Codeception\Stub;
-use Codeception\Test\Unit;
 use RuntimeException;
 use Yii;
 use Yii\CoreLibrary\Repository\PersistenceRepositoryInterface;
@@ -14,13 +13,14 @@ use Yii\User\ActiveRecord\Account;
 use Yii\User\ActiveRecord\Identity;
 use Yii\User\ActiveRecord\Profile;
 use Yii\User\ActiveRecord\SocialAccount;
+use Yii\User\Tests\Support\UnitTester;
 use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UseCase\Register\RegisterService;
 use Yii\User\UserModule;
 
-final class RegisterServiceTest extends Unit
+final class RegisterServiceCest
 {
-    public function testRunWithPersistenceRepositoryInterfaceSaveAccountFalse(): void
+    public function runWithPersistenceRepositoryInterfaceSaveAccountFalse(UnitTester $I): void
     {
         $account = new Account();
         $identity = new Identity();
@@ -51,10 +51,10 @@ final class RegisterServiceTest extends Unit
         /** @var RegisterForm $registerForm */
         $registerForm = Yii::$container->get(RegisterForm::class);
 
-        $this->assertFalse($registerService->run($registerForm));
+        $I->assertFalse($registerService->run($registerForm));
     }
 
-    public function testRunWithPersistenceRepositoryInterfaceSaveIdentityFalse(): void
+    public function runWithPersistenceRepositoryInterfaceSaveIdentityFalse(UnitTester $I): void
     {
         /** @var PersistenceRepositoryInterface $persistenceRepository */
         $persistenceRepository = Stub::makeEmpty(PersistenceRepositoryInterface::class, ['save' => false]);
@@ -72,10 +72,10 @@ final class RegisterServiceTest extends Unit
         /** @var RegisterForm $registerForm */
         $registerForm = Yii::$container->get(RegisterForm::class);
 
-        $this->assertFalse($registerService->run($registerForm));
+        $I->assertFalse($registerService->run($registerForm));
     }
 
-    public function testRunWithThrowsExceptionOnExistingUser(): void
+    public function runWithThrowsExceptionOnExistingUser(UnitTester $I): void
     {
         $identity = new Identity();
         $identity->setOldAttributes(['id' => 1]);
@@ -92,9 +92,9 @@ final class RegisterServiceTest extends Unit
         /** @var RegisterForm $registerForm */
         $registerForm = Yii::$container->get(RegisterForm::class);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Calling "' . RegisterService::class . '::run()" on existing user');
-
-        $registerService->run($registerForm);
+        $I->expectThrowable(
+            new RuntimeException('Calling "' . RegisterService::class . '::run()" on existing user'),
+            static fn () => $registerService->run($registerForm),
+        );
     }
 }

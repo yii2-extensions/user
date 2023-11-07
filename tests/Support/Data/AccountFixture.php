@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yii\User\Tests\Support\Data\Framework\Fixture;
+namespace Yii\User\Tests\Support\Data;
 
 use yii\test\ActiveFixture;
 use Yii\User\ActiveRecord\Account;
