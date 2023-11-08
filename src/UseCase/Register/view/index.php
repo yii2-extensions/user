@@ -132,7 +132,7 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                         ->content(Yii::t('yii.user', 'Or login with:'))
                                 ),
                             A::widget()
-                                ->attributes(['aria-label' => 'github-button'])
+                                ->ariaLabel('github-button')
                                 ->class('btn btn-icon-only btn-pill btn-outline-gray-500')
                                 ->content(
                                     Span::widget()
