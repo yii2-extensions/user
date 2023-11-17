@@ -12,7 +12,6 @@ use PHPForge\Html\Span;
 use PHPForge\Html\Tag;
 use sjaakp\icon\Icon;
 use yii\bootstrap5\ActiveForm;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use Yii\User\UseCase\Register\RegisterForm;
 use Yii\User\UserModule;
