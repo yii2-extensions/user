@@ -7,7 +7,7 @@ use Yii\User\UseCase\Logout\LogoutController;
 use Yii\User\UseCase\Register\RegisterController;
 
 return [
-    'app.aliases' => [
+    'common.aliases' => [
         '@yii-user' => '@vendor/yii2-extensions/user',
         '@yii-user/mailer' => '@yii-user/src/Framework/resource/mailer',
         '@yii-user/migration' => '@yii-user/src/Framework/Migration',
