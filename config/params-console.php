@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'console.aliases' => [
+    'common.aliases' => [
         '@yii-user' => '@vendor/yii2-extensions/user',
         '@yii-user/migration' => '@yii-user/src/Framework/Migration',
     ],
