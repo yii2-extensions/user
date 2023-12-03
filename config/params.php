@@ -24,20 +24,6 @@ return [
         ],
     ],
     'app.params' => [
-        'app.menu.isguest' => [
-            [
-                'label' => 'Register',
-                'url' => ['/register/index'],
-                'order' => 3,
-                'category' => 'yii.user',
-            ],
-            [
-                'label' => 'Login',
-                'url' => ['/login/index'],
-                'order' => 4,
-                'category' => 'yii.user',
-            ],
-        ],
         'app.menu.islogged' => [
             [
                 'label' => 'Logout',
