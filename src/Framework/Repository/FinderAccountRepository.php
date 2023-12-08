@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Yii\User\Framework\Repository;
 
 use Yii\CoreLibrary\Repository\FinderRepositoryInterface;
-use yii\db\ActiveRecordInterface;
 use Yii\User\ActiveRecord\Account;
 
 final class FinderAccountRepository
