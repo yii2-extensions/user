@@ -67,7 +67,7 @@ final class LoginForm extends Model
         $this->account = $this->finderAccountRepository->findByUsernameOrEmail($this->login);
 
         if ($this->account === null || $this->account->password_hash === null) {
-            return false;
+            return true;
         }
 
         return $this->passwordHasher->validate($this->password, $this->account->password_hash) === false;

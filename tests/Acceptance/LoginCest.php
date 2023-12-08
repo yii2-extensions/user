@@ -83,6 +83,28 @@ final class LoginCest
         $I->dontSeeLink(Yii::t('yii.user', 'Logout'));
     }
 
+    public function failedWithEmailNotExist(AcceptanceTester $I): void
+    {
+        $I->amGoingTo('navigate to the login page.');
+        $I->amOnRoute('login/index');
+
+        $I->wantTo('ensure that login page works.');
+        $I->expectTo('see page index.');
+        $I->see(Yii::t('yii.user', 'Sign in'), 'h1');
+        $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
+
+        $I->expectTo('fill in the form.');
+        $I->fillField('#loginform-login', 'user@yii.com');
+        $I->fillField('#loginform-password', '12345678');
+        $I->click(Yii::t('yii.user', 'Sign in'));
+
+        $I->expectTo('see message validation.');
+        $I->see(Yii::t('yii.user', 'Invalid login or password.'));
+
+        $I->expectTo('see that the user is logged in.');
+        $I->dontSeeLink(Yii::t('yii.user', 'Logout'));
+    }
+
     public function failedWithUsername(AcceptanceTester $I): void
     {
         $I->wantTo('security login username submit form success data.');
@@ -99,6 +121,28 @@ final class LoginCest
 
         $I->expectTo('fill in the form.');
         $I->fillField('#loginform-login', $account->username);
+        $I->fillField('#loginform-password', '12345678');
+        $I->click(Yii::t('yii.user', 'Sign in'));
+
+        $I->expectTo('see message validation.');
+        $I->see(Yii::t('yii.user', 'Invalid login or password.'));
+
+        $I->expectTo('see that the user is logged in.');
+        $I->dontSeeLink(Yii::t('yii.user', 'Logout'));
+    }
+
+    public function failedWithUserNameNotExist(AcceptanceTester $I): void
+    {
+        $I->amGoingTo('navigate to the login page.');
+        $I->amOnRoute('login/index');
+
+        $I->wantTo('ensure that login page works.');
+        $I->expectTo('see page index.');
+        $I->see(Yii::t('yii.user', 'Sign in'), 'h1');
+        $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
+
+        $I->expectTo('fill in the form.');
+        $I->fillField('#loginform-login', 'not-exist');
         $I->fillField('#loginform-password', '12345678');
         $I->click(Yii::t('yii.user', 'Sign in'));
 
