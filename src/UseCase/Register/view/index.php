@@ -132,12 +132,12 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                 ),
                             A::widget()
                                 ->ariaLabel('github-button')
-                                ->class('btn btn-icon-only btn-pill btn-outline-gray-500')
+                                ->class('mb-2')
                                 ->content(
                                     Span::widget()
                                         ->class('btn btn-outline-secondary fa-2x')
                                         ->content(
-                                            Icon::renderIcon('brands', 'github', ['class' => 'fab text-center'])
+                                            Icon::renderIcon('brands', 'github', ['class' => 'text-center'])
                                         )
                                 )
                                 ->href('#')
