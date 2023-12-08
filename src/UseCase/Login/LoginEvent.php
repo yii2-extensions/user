@@ -12,6 +12,8 @@ final class LoginEvent extends Event
 {
     public const AFTER_LOGIN = 'afterLogin';
     public const BEFORE_LOGIN = 'beforeLogin';
+    public const IP_NOT_ALLOWED = 'ipNotAllowed';
+    public const MODULE_DISABLE = 'moduleDisable';
 
     public function __construct(
         public readonly Model $model,

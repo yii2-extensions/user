@@ -56,6 +56,9 @@ final class UserModule
     public readonly string $urlConfirmation;
 
     public function __construct(
+        public readonly bool $allowLogin = true,
+        public readonly array $allowLoginByIPs = [],
+        public readonly bool $allowRegister = true,
         public readonly int $autoLogin = 1209600,
         public readonly bool $confirmation = false,
         public readonly bool $floatLabels = true,
@@ -67,7 +70,6 @@ final class UserModule
         public readonly array $mailerWelcomeLayout = ['html' => 'welcome', 'text' => 'text/welcome'],
         string|null $mailerWelcomeSubject = null,
         public readonly bool $passwordRecovery = true,
-        public readonly bool $register = true,
         public readonly bool $showPassword = false,
         public readonly int $token2FAWithin = 3600,
         public readonly int $tokenConfirmWithin = 86400,

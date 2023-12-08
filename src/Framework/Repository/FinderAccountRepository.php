@@ -16,17 +16,21 @@ final class FinderAccountRepository
     ) {
     }
 
-    public function findByEmail(string $email): ActiveRecordInterface|array|null
+    public function findByEmail(string $email): Account|null
     {
-        return $this->finderRepository->findByOneCondition($this->account, ['email' => $email]);
+        $account = $this->finderRepository->findByOneCondition($this->account, ['email' => $email]);
+
+        return $account instanceof Account ? $account : null;
     }
 
-    public function findByUsername(string $username): ActiveRecordInterface|array|null
+    public function findByUsername(string $username): Account|null
     {
-        return $this->finderRepository->findByOneCondition($this->account, ['username' => $username]);
+        $account = $this->finderRepository->findByOneCondition($this->account, ['username' => $username]);
+
+        return $account instanceof Account ? $account : null;
     }
 
-    public function findByUsernameOrEmail(string $usernameOrEmail): ActiveRecordInterface|array|null
+    public function findByUsernameOrEmail(string $usernameOrEmail): Account|null
     {
         return filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)
             ? $this->findByEmail($usernameOrEmail)

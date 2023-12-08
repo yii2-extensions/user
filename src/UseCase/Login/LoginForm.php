@@ -7,6 +7,7 @@ namespace Yii\User\UseCase\Login;
 use Yii;
 use yii\base\Model;
 use Yii\User\ActiveRecord\Account;
+use Yii\User\Framework\Repository\FinderAccountRepository;
 use Yii\User\UserModule;
 use Yiisoft\Security\PasswordHasher;
 
@@ -17,7 +18,8 @@ final class LoginForm extends Model
     public int $rememberMe = 0;
 
     public function __construct(
-        private readonly Account|null $account,
+        public Account|null $account,
+        private readonly FinderAccountRepository $finderAccountRepository,
         private readonly PasswordHasher $passwordHasher,
         private readonly UserModule $userModule,
         array $config = []
@@ -41,13 +43,6 @@ final class LoginForm extends Model
             ['login', 'string', 'min' => 3, 'max' => 255],
             ['login', 'match', 'pattern' => $this->userModule->usernameRegex],
             ['login', 'required'],
-            [
-                'login',
-                function (string $attribute): void {
-                    $this->addError($attribute, Yii::t('yii.user', 'Invalid login or password.'));
-                },
-                'when' => fn (): bool => $this->account === null,
-            ],
             // password validate
             ['password', 'trim'],
             ['password', 'string', 'min' => 6, 'max' => 72],
@@ -57,8 +52,7 @@ final class LoginForm extends Model
                 function (string $attribute): void {
                     $this->addError($attribute, Yii::t('yii.user', 'Invalid login or password.'));
                 },
-                'when' => fn (): bool => $this->account === null ||
-                    $this->passwordHasher->validate($this->password, $this->account->password_hash) === false,
+                'when' => fn (): bool => $this->validatePassword(),
             ],
         ];
     }
@@ -66,5 +60,16 @@ final class LoginForm extends Model
     public function autoLogin(): int
     {
         return $this->rememberMe ?: 0;
+    }
+
+    private function validatePassword(): bool
+    {
+        $this->account = $this->finderAccountRepository->findByUsernameOrEmail($this->login);
+
+        if ($this->account === null || $this->account->password_hash === null) {
+            return false;
+        }
+
+        return $this->passwordHasher->validate($this->password, $this->account->password_hash) === false;
     }
 }

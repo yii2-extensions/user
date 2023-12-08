@@ -28,12 +28,13 @@ final class LoginController extends Controller
     public function __construct(
         $id,
         Module $module,
+        private readonly Account $account,
         private readonly AjaxValidator $ajaxValidator,
         private readonly FinderAccountRepository $finderAccountRepository,
+        private readonly LoginService $loginService,
         private readonly PasswordHasher $passwordHasher,
         private readonly User $user,
         private readonly UserModule $userModule,
-        private readonly LoginService $loginService,
         array $config = []
     ) {
         parent::__construct($id, $module, $config);
@@ -51,31 +52,35 @@ final class LoginController extends Controller
                         'roles' => ['?'],
                     ],
                 ],
-                'denyCallback' => function () {
-                    if ($this->user->getIsGuest() === false) {
-                        return $this->goHome();
-                    }
-                },
             ],
         ];
     }
 
     public function actionIndex(): Response|string
     {
-        $account = null;
-
-        if (
-            $this->request instanceof Request &&
-            $this->request->getIsPost() === true &&
-            $this->request->post('LoginForm') !== null
-        ) {
-            $login = $this->request->post('LoginForm')['login'] ?? '';
-            /** @var Account|null $account */
-            $account = $this->finderAccountRepository->findByUsernameOrEmail($login);
+        if ($this->user->getIsGuest() === false) {
+            return $this->goHome();
         }
 
-        $loginForm = new $this->formModelClass($account, $this->passwordHasher, $this->userModule);
+        $loginForm = new $this->formModelClass(
+            $this->account,
+            $this->finderAccountRepository,
+            $this->passwordHasher,
+            $this->userModule,
+        );
         $event = new LoginEvent($loginForm, $this->userModule);
+
+        if ($this->userModule->allowLogin === false && $this->userModule->allowLoginByIPs === []) {
+            $this->trigger(LoginEvent::MODULE_DISABLE, $event);
+
+            return $this->goHome();
+        }
+
+        if ($this->userModule->allowLoginByIPs !== [] && !$this->loginService->checkAllowedIp($this->request->userIP)) {
+            $this->trigger(LoginEvent::IP_NOT_ALLOWED, $event);
+
+            return $this->goHome();
+        }
 
         $this->trigger(LoginEvent::BEFORE_LOGIN, $event);
         $this->ajaxValidator->validate($loginForm);
@@ -84,7 +89,7 @@ final class LoginController extends Controller
             $this->request instanceof Request &&
             $loginForm->load($this->request->post()) &&
             $loginForm->validate() &&
-            $this->loginService->run($account, $loginForm->autoLogin())
+            $this->loginService->run($loginForm)
         ) {
             $this->trigger(LoginEvent::AFTER_LOGIN, $event);
 

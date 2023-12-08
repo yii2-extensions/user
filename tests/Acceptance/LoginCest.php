@@ -11,6 +11,52 @@ use Yii\User\Tests\Support\Data\AccountFixture;
 
 final class LoginCest
 {
+    public function allowLogin(AcceptanceTester $I): void
+    {
+        $I->amGoingTo('disable login page.');
+        $I->allowLogin(false);
+
+        $I->amGoingTo('go to the page login.');
+        $I->amOnRoute('login/index');
+
+        $I->expectTo('see message home page.');
+        $I->see(Yii::t('app.basic', 'Web Application'));
+
+        $I->amGoingTo('enable login page.');
+        $I->allowLogin(true);
+    }
+
+    public function allowLoginByIps(AcceptanceTester $I): void
+    {
+        $I->amGoingTo('allow login by ips.');
+        $I->allowLoginByIPs(false, ['127.0.0.1', '127.0.0.2', '127.0.0.3']);
+
+        $I->amGoingTo('go to the page login.');
+        $I->amOnRoute('login/index');
+
+        $I->expectTo('see message login page.');
+        $I->see(Yii::t('yii.user', 'Sign in'), 'h1');
+        $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
+
+        $I->amGoingTo('disable login by ips.');
+        $I->allowLogin(true, []);
+    }
+
+    public function allowLoginByIpsFailed(AcceptanceTester $I): void
+    {
+        $I->amGoingTo('allow login by ips.');
+        $I->allowLoginByIPs(false, ['172.0.0.1']);
+
+        $I->amGoingTo('go to the page login.');
+        $I->amOnRoute('login/index');
+
+        $I->expectTo('see message home page.');
+        $I->see(Yii::t('app.basic', 'Web Application'));
+
+        $I->amGoingTo('disable login by ips.');
+        $I->allowLogin(true, []);
+    }
+
     public function indexPage(AcceptanceTester $I): void
     {
         $I->amGoingTo('navigate to the login page.');
