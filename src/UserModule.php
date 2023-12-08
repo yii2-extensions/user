@@ -74,7 +74,6 @@ final class UserModule
         public readonly int $tokenRecoverWithin = 3600,
         string $urlConfirmation = null,
         public readonly string $usernameRegex = '/^[-a-zA-Z0-9_\.@]+$/',
-        array $config = [],
     ) {
         $this->mailerSignatureText = $mailerSignatureText ??
             Yii::t(
