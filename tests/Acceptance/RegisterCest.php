@@ -9,19 +9,19 @@ use Yii\User\Tests\Support\AcceptanceTester;
 
 final class RegisterCest
 {
-    public function disablePage(AcceptanceTester $I): void
+    public function allowRegister(AcceptanceTester $I): void
     {
         $I->amGoingTo('disable register page.');
-        $I->accountRegister(false);
+        $I->allowRegister(false);
 
-        $I->amGoingTo('go to the page registration.');
+        $I->amGoingTo('go to the page register.');
         $I->amOnRoute('register/index');
 
-        $I->expectTo('see message register disabled.');
+        $I->expectTo('see message home page.');
         $I->see(Yii::t('app.basic', 'Web Application'));
 
         $I->amGoingTo('enable register page.');
-        $I->accountRegister(true);
+        $I->allowRegister(true);
     }
 
     public function indexPage(AcceptanceTester $I): void

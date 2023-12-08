@@ -51,13 +51,38 @@ class AcceptanceTester extends \Codeception\Actor
         );
     }
 
-    public function accountRegister(bool $option): void
+    public function allowLogin(bool $option): void
     {
         \Yii::$container->set(
             \Yii\User\UserModule::class,
             [
                 '__construct()' => [
-                    'register' => $option,
+                    'allowLogin' => $option,
+                ],
+            ],
+        );
+    }
+
+    public function allowLoginByIPs(bool $allowLogin, array $ips): void
+    {
+        \Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'allowLogin' => $allowLogin,
+                    'allowLoginByIPs' => $ips,
+                ],
+            ],
+        );
+    }
+
+    public function allowRegister(bool $option): void
+    {
+        \Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'allowRegister' => $option,
                 ],
             ],
         );

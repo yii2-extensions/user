@@ -107,7 +107,7 @@ $this->title = Yii::t('yii.user', 'Sign in');
                             )
                     ?>
                 <?php endif ?>
-                <?php if ($userModule->register) : ?>
+                <?php if ($userModule->allowRegister) : ?>
                     <?=
                         P::widget()
                             ->class('mt-3 text-center')

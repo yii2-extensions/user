@@ -57,7 +57,7 @@ final class TokenToUrl
     {
         $account = $this->finderRepository->findById($this->account, $id);
 
-        if ($account === null || $account === []) {
+        if ($account === null) {
             throw new RuntimeException('Invalid user identity.');
         }
 
