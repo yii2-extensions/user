@@ -76,7 +76,11 @@ final class LoginController extends Controller
             return $this->goHome();
         }
 
-        if ($this->userModule->allowLoginByIPs !== [] && !$this->loginService->checkAllowedIp($this->request->userIP)) {
+        if (
+            $this->userModule->allowLoginByIPs !== [] &&
+            $this->request instanceof Request &&
+            $this->loginService->checkAllowedIp($this->request->getUserIP()) === false
+        ) {
             $this->trigger(LoginEvent::IP_NOT_ALLOWED, $event);
 
             return $this->goHome();
