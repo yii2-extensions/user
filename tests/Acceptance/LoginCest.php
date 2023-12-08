@@ -164,6 +164,37 @@ final class LoginCest
         $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
     }
 
+    public function indexPageWithLoginUser(AcceptanceTester $I): void
+    {
+        $I->wantTo('security login username submit form success data.');
+        $I->haveFixtures([Account::class => AccountFixture::class]);
+        $account = $I->grabFixture(Account::class, 'confirmed');
+
+        $I->amGoingTo('navigate to the login page.');
+        $I->amOnRoute('login/index');
+
+        $I->wantTo('ensure that login page works.');
+        $I->expectTo('see page index.');
+        $I->see(Yii::t('yii.user', 'Sign in'), 'h1');
+        $I->see(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
+
+        $I->expectTo('fill in the form.');
+        $I->fillField('#loginform-login', $account->email);
+        $I->fillField('#loginform-password', '123456');
+        $I->click(Yii::t('yii.user', 'Sign in'));
+
+        $I->expectTo('see that the user is logged in.');
+        $I->seeLink(Yii::t('yii.user', 'Logout'));
+
+        $I->amGoingTo('navigate to the login page.');
+        $I->amOnRoute('login/index');
+
+        $I->expectTo('see message home page and not see login page.');
+        $I->see(Yii::t('app.basic', 'Web Application'));
+        $I->dontSee(Yii::t('yii.user', 'Sign in'), 'h1');
+        $I->dontSee(Yii::t('yii.user', 'Please fill out the following fields to Sign in.'));
+    }
+
     public function linkResendConfirmationMessage(AcceptanceTester $I): void
     {
         $I->amGoingTo('set confirmation true.');
