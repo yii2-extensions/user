@@ -135,10 +135,9 @@ $this->title = Yii::t('yii.user', 'Sign up');
                                 ->class('btn btn-icon-only btn-pill btn-outline-gray-500')
                                 ->content(
                                     Span::widget()
-                                        ->class('fa-stack fa-2x')
+                                        ->class('btn btn-outline-secondary fa-2x')
                                         ->content(
-                                            Icon::renderIcon('solid', 'square-full', ['class' => 'fas fa-stack-2x']),
-                                            Icon::renderIcon('brands', 'github', ['class' => 'fab fa-stack-1x fa-inverse text-center'])
+                                            Icon::renderIcon('brands', 'github', ['class' => 'fab text-center'])
                                         )
                                 )
                                 ->href('#')

@@ -12,6 +12,7 @@ final class RegisterEvent extends Event
 {
     public const AFTER_REGISTER = 'afterRegister';
     public const BEFORE_REGISTER = 'beforeRegister';
+    public const MODULE_DISABLE = 'moduleDisable';
 
     public function __construct(
         public readonly Model $formModel,

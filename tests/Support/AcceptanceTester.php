@@ -50,4 +50,16 @@ class AcceptanceTester extends \Codeception\Actor
             ],
         );
     }
+
+    public function accountRegister(bool $option): void
+    {
+        \Yii::$container->set(
+            \Yii\User\UserModule::class,
+            [
+                '__construct()' => [
+                    'register' => $option,
+                ],
+            ],
+        );
+    }
 }

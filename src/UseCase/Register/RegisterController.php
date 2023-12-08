@@ -59,6 +59,12 @@ final class RegisterController extends Controller
         $registerForm = new $this->formModelClass($this->userModule);
         $event = new RegisterEvent($registerForm, $this->userModule);
 
+        if ($this->userModule->register === false) {
+            $this->trigger(RegisterEvent::MODULE_DISABLE, $event);
+
+            return $this->goHome();
+        }
+
         $this->trigger(RegisterEvent::BEFORE_REGISTER, $event);
         $this->ajaxValidator->validate($registerForm);
 
