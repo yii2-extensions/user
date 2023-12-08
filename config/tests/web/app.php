@@ -20,13 +20,13 @@ return [
     ],
     'basePath' => dirname(__DIR__, 3),
     'bootstrap' => ['log'],
-    'controllerMap' => $params['app.controllerMap'],
+    'controllerMap' => $params['web.controllerMap'],
     'id' => 'app-tests',
     'language' => 'en-US',
     'name' => 'Web application basic',
     'on beforeAction' => static function (): void {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     },
-    'params' => $params['app.params'] ?? [],
+    'params' => $params['web.params'] ?? [],
     'runtimePath' => dirname(__DIR__, 3) . '/tests/public/runtime',
 ];
