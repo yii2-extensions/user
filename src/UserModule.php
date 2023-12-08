@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Yii\User;
 
 use Yii;
-use yii\base\Module;
 use yii\helpers\Url;
 
-final class UserModule extends Module
+final class UserModule
 {
     /**
      * Flag for email change.
@@ -57,8 +56,6 @@ final class UserModule extends Module
     public readonly string $urlConfirmation;
 
     public function __construct(
-        $id,
-        Module $module,
         public readonly int $autoLogin = 1209600,
         public readonly bool $confirmation = false,
         public readonly bool $floatLabels = true,
@@ -77,7 +74,6 @@ final class UserModule extends Module
         public readonly int $tokenRecoverWithin = 3600,
         string $urlConfirmation = null,
         public readonly string $usernameRegex = '/^[-a-zA-Z0-9_\.@]+$/',
-        array $config = [],
     ) {
         $this->mailerSignatureText = $mailerSignatureText ??
             Yii::t(
@@ -86,7 +82,5 @@ final class UserModule extends Module
             );
         $this->mailerWelcomeSubject = $mailerWelcomeSubject ?? Yii::t('yii.user', 'Welcome to {0}', [Yii::$app->name]);
         $this->urlConfirmation = $urlConfirmation ??= Url::to('/user/confirm');
-
-        parent::__construct($id, $module, $config);
     }
 }
