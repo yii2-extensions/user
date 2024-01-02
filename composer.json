@@ -60,8 +60,7 @@
         },
         "config-plugin": {
             "web": "web/*.php",
-            "params": "params.php",
-            "params-console": "params-console.php"
+            "params": "params.php"
         },
         "config-plugin-options": {
             "package-types": [
